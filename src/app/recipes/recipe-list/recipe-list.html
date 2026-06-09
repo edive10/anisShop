@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewRecipe()">کتاب جدید</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <!-- استفاده از slice برای محدود کردن نمایش بر اساس صفحه فعلی -->
+    <app-recipe-item 
+      *ngFor="let recipeEl of recipes | slice:(currentPage-1)*itemsPerPage : currentPage*itemsPerPage; let i = index"
+      [recipe]="recipeEl"
+      [index]="recipes.indexOf(recipeEl)"> 
+    </app-recipe-item>
+  </div>
+</div>
+
+<!-- بخش دکمه‌های صفحه‌بندی -->
+<div class="row text-center">
+  <div class="col-xs-12">
+    <nav>
+      <ul class="pagination">
+        <li [class.disabled]="currentPage === 1">
+          <a (click)="onPageChange(currentPage - 1)" style="cursor: pointer;">&laquo;</a>
+        </li>
+        
+        <li *ngFor="let page of pages" [class.active]="page === currentPage">
+          <a (click)="onPageChange(page)" style="cursor: pointer;">{{ page }}</a>
+        </li>
+
+        <li [class.disabled]="currentPage === totalPages">
+          <a (click)="onPageChange(currentPage + 1)" style="cursor: pointer;">&raquo;</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

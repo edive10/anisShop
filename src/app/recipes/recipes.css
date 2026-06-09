@@ -1,0 +1,53 @@
+/* فونت کل این بخش */
+:host {
+    display: block;
+    font-family: 'Vazirmatn', sans-serif;
+    direction: rtl; /* راست‌چین کردن کل جزئیات */
+}
+
+/* بزرگ کردن عنوان کتاب */
+.book-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+/* استایل عکس */
+.book-img {
+    max-height: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+/* استایل متن توضیحات */
+.book-description {
+    font-size: 20px; /* سایز بزرگتر برای توضیحات */
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+
+/* استایل لیست ویژگی‌های کتاب (تعداد صفحات و ...) */
+.custom-list-item {
+    font-size: 19px; /* سایز بزرگ لیست */
+    padding: 15px 20px;
+    border-left: 5px solid #337ab7; /* اضافه کردن یک نوار رنگی در کنار لیست */
+    margin-bottom: 5px;
+}
+
+.ingredient-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.ingredient-amount {
+    color: #666;
+}
+
+/* بزرگتر کردن دکمه مدیریت */
+.btn-lg {
+    padding: 10px 25px;
+    font-size: 18px;
+}

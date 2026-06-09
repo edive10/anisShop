@@ -1,0 +1,54 @@
+.publisher-info {
+  font-family: 'Vazirmatn', sans-serif;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  direction: rtl;
+}
+
+/* استایل لوگو */
+.publisher-logo {
+  max-height: 120px; /* اندازه لوگو را اینجا تنظیم کن */
+  margin: 0 auto 15px auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.publisher-name {
+  color: #337ab7;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* تراز کردن آیکون و متن در سه ستون */
+.info-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.info-item span {
+  font-size: 24px;
+  margin-left: 12px;
+}
+
+.info-text {
+  text-align: right;
+}
+
+.info-text strong {
+  display: block;
+  font-size: 14px;
+  color: #777;
+}
+
+.info-text p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.lead {
+  font-size: 18px;
+  color: #555;
+}

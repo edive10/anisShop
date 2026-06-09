@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-xs-12">
+    <!-- تصویر با گوشه‌های گرد و سایه ملایم -->
+    <img [src]="recipe.imagePath" alt="{{recipe.name}}" class="img-responsive img-thumbnail book-img">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h1 class="book-title">{{ recipe.name }}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group" appDropdown>
+      <button type="button" class="btn btn-primary dropdown-toggle btn-lg">
+        مدیریت کتاب <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a (click)="onAddToShoppingList()" style="cursor:pointer">افزودن به لیست خرید</a></li>
+        <li><a (click)="OnEditRecipe()" style="cursor:pointer">ویرایش کتاب</a></li>
+        <li><a (click)="onDeleteRecipe()" style="cursor:pointer">حذف کتاب</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+  <div class="col-xs-12 book-description">
+    {{recipe.description}}
+  </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <!-- استفاده از کلاس custom-list برای استایل‌دهی -->
+      <li class="list-group-item custom-list-item" *ngFor="let ingredient of recipe.ingredients">
+        <span class="ingredient-name">{{ingredient.name}}</span> : 
+        <span class="ingredient-amount">{{ ingredient.amount }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

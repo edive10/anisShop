@@ -1,0 +1,59 @@
+<nav class="navbar navbar-default custom-navbar">
+  <div class="container-fluid">
+
+    <!-- Brand -->
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/" style="cursor:pointer">
+        📚 فروشگاه کتاب
+      </a>
+    </div>
+
+    <!-- Menu -->
+    <div class="collapse navbar-collapse">
+
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+          <a routerLink="/recipes">
+            <span class="glyphicon glyphicon-book"></span>
+            کتاب‌ها
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a routerLink="/shopping-list">
+            <span class="glyphicon glyphicon-list"></span>
+            لیست خرید
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" appDropdown>
+          <a class="dropdown-toggle" style="cursor:pointer">
+            <span class="glyphicon glyphicon-cog"></span>
+            مدیریت
+            <span class="caret"></span>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a style="cursor:pointer">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+                ذخیره
+              </a>
+            </li>
+
+            <li>
+              <a style="cursor:pointer">
+                <span class="glyphicon glyphicon-refresh"></span>
+                همگام سازی
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
