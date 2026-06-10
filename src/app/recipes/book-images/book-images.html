@@ -1,0 +1,38 @@
+<div class="row" *ngIf="images && images.length > 0">
+  <div class="col-xs-12">
+    <h4 class="gallery-title">تصاویر داخل کتاب</h4>
+  </div>
+</div>
+
+<div class="row" *ngIf="images && images.length > 0">
+  <div
+    class="col-sm-4 col-xs-6"
+    *ngFor="let img of images">
+
+    <div class="gallery-item">
+      <img
+        [src]="img"
+        class="img-thumbnail gallery-image"
+        loading="lazy"
+        (click)="openImage(img)">
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!images || images.length === 0">
+  <div class="col-xs-12">
+    <div class="alert alert-info">
+      تصویری برای این کتاب ثبت نشده است.
+    </div>
+  </div>
+</div>
+
+<!-- مودال -->
+<div class="custom-modal" *ngIf="showModal">
+  <div class="custom-modal-backdrop" (click)="closeModal()"></div>
+
+  <div class="custom-modal-content">
+    <span class="close-btn" (click)="closeModal()">&times;</span>
+    <img [src]="selectedImage" class="img-responsive modal-image">
+  </div>
+</div>

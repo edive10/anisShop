@@ -23,6 +23,7 @@
         <li><a (click)="onDeleteRecipe()" style="cursor:pointer">حذف کتاب</a></li>
       </ul>
     </div>
+
   </div>
 </div>
 
@@ -37,9 +38,43 @@
     <ul class="list-group">
       <!-- استفاده از کلاس custom-list برای استایل‌دهی -->
       <li class="list-group-item custom-list-item" *ngFor="let ingredient of recipe.ingredients">
-        <span class="ingredient-name">{{ingredient.name}}</span> : 
+        <span class="ingredient-name">{{ingredient.name}}</span> :
         <span class="ingredient-amount">{{ ingredient.amount }}</span>
       </li>
     </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-primary dropdown-toggle btn-lg" (click)="toggleImages()">تصاویر داخل کتاب</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+  </div>
+</div>
+
+<div class="row" *ngIf="showImages">
+
+  <div class="col-sm-4 col-xs-6" *ngFor="let img of recipe.images; let i = index">
+
+    <div class="gallery-card">
+      <img [src]="img" class="gallery-img" loading="lazy" (click)="openImage(img,i)">
+    </div>
+
+  </div>
+
+</div>
+<div class="image-modal" *ngIf="showModal">
+  <div class="modal-backdrop" (click)="closeModal()"></div>
+
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close-btn" (click)="closeModal()">×</span>
+
+    <button class="nav-btn left" (click)="prevImage()">❮</button>
+
+    <img [src]="selectedImage" class="modal-img" alt="book image">
+
+    <button class="nav-btn right" (click)="nextImage()">❯</button>
   </div>
 </div>

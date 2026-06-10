@@ -1,0 +1,63 @@
+.gallery-title {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.gallery-item {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.gallery-image {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.gallery-image:hover {
+  transform: scale(1.03);
+}
+
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+}
+
+.custom-modal-backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.custom-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  text-align: center;
+}
+
+.modal-image {
+  max-height: 80vh;
+  margin: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 12px;
+  font-size: 30px;
+  cursor: pointer;
+}

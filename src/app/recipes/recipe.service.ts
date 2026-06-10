@@ -13,18 +13,22 @@ export class RecipeService {
     new Recipe(
       'جلد اول عروسک های بافتنی',
       'این جلد شامل خانواده قورباغه ها، موشها، ماهی ها، سگ و جغد هاست',
-      '../../assets/JeldAval.jpg',
+      '../../assets/1.jpg',
       [
         new Ingredient('تعداد عروسک‌ها', '27'),
         new Ingredient('تعداد صفحات', '86'),
         new Ingredient('سایز عروسک‌ها', '1 تا 25 سانتی‌متر'),
         new Ingredient('سال انتشار', '1376')
+      ],
+      [
+        'assets/tasvirDakhel/2.jpg',
+        'assets/tasvirDakhel/3.jpg',
       ]
     ),
     new Recipe(
       'جلد دوم عروسک های بافتنی',
       'این جلد شامل 19 عدد عروسک بوده که با اسستفاده از 2 میل بافته شده و قابلیت شست و شو دارند',
-      '../../assets/JeldDovom.jpg'
+      '../../assets/2.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '19'),
@@ -32,11 +36,15 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '18 سانتی متر'),
         new Ingredient('سال انتشار', '1377')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/5.jpg',
+      'assets/tasvirDakhel/6.jpg',
+
+    ]),
     new Recipe(
       'جلد سوم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldSevom.jpg'
+      '../../assets/3.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -44,11 +52,14 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ],
+      [
+        'assets/tasvirDakhel/8.jpg',
       ]),
     new Recipe(
       'جلد چهارم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldChahar.jpg'
+      '../../assets/4.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -56,11 +67,14 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ],
+      [
+        'assets/tasvirDakhel/10.jpg',
       ]),
     new Recipe(
       'جلد پنجم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldPanj.jpg'
+      '../../assets/5.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -68,11 +82,14 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/12.jpg',
+      'assets/tasvirDakhel/13.jpg'
+    ]),
     new Recipe(
       'جلد ششم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldShesh.jpg'
+      '../../assets/6.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -80,11 +97,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/15.jpg',
+    ]),
     new Recipe(
       'جلد هفتم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldHaft.jpg'
+      '../../assets/7.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -92,11 +111,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/17.jpg',
+    ]),
     new Recipe(
       'جلد هشتم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldHasht.jpg'
+      '../../assets/8.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -104,11 +125,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/19.jpg'
+    ]),
     new Recipe(
       'جلد نهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldNoh.jpg'
+      '../../assets/9.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -116,11 +139,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/21.jpg'
+    ]),
     new Recipe(
       'جلد دهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldDah.jpg'
+      '../../assets/10.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -128,11 +153,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/22-1.jpg'
+    ]),
     new Recipe(
       'جلد یازدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldYazdah.jpg'
+      '../../assets/11.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -140,11 +167,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/24.jpg'
+    ]),
     new Recipe(
       'جلد دوازدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldDavazdah.jpg'
+      '../../assets/12.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -152,11 +181,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/26.jpg'
+    ]),
     new Recipe(
       'جلد سیزدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldSizdah.jpg'
+      '../../assets/13.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -164,11 +195,14 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
-      ]),
+      ], [
+      'assets/tasvirDakhel/28.jpg',
+      'assets/tasvirDakhel/29.jpg'
+    ]),
     new Recipe(
       'جلد چهاردهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldChahardah.jpg'
+      '../../assets/14.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -176,11 +210,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ], [
+            'assets/tasvirDakhel/31.jpg'
       ]),
     new Recipe(
       'جلد پانزدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldPanzdah.jpg'
+      '../../assets/15.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -188,11 +224,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ], [
+            'assets/tasvirDakhel/33.jpg'
       ]),
     new Recipe(
       'جلد شانزدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldShanzdah.jpg'
+      '../../assets/16.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -200,11 +238,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ], [
+            'assets/tasvirDakhel/35.jpg'
       ]),
     new Recipe(
       'جلد هفدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldHefdah.jpg'
+      '../../assets/18.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -212,11 +252,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ], [
+            'assets/tasvirDakhel/37.jpg'
       ]),
     new Recipe(
       'جلد هجدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldHezhdah.jpg'
+      '../../assets/17.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -224,11 +266,13 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ], [
+            'assets/tasvirDakhel/39.jpg'
       ]),
     new Recipe(
       'جلد نانزدهم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldNanzdah.jpg'
+      '../../assets/19.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -236,11 +280,14 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ], [
+            'assets/tasvirDakhel/41.jpg',
+            'assets/tasvirDakhel/42.jpg',
       ]),
     new Recipe(
       'جلد بیستم عروسک های بافتنی',
       'آموزش بافت 7 عروسک به نام های سبلان، سپیده، مادربزرگ، پدربزرگ با قد تقریبی 34 سانت',
-      '../../assets/JeldBist.jpg'
+      '../../assets/20.jpg'
       , [
 
         new Ingredient('تعداد عروسک‌ها', '6'),
@@ -248,6 +295,8 @@ export class RecipeService {
         new Ingredient('سایز عروسک‌ها', '17 تا 32 سانتی‌متر'),
         new Ingredient('سال انتشار', '1378')
 
+      ], [
+            'assets/tasvirDakhel/44.jpg'
       ]),
   ];
 

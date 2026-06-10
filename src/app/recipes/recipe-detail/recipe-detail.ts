@@ -12,6 +12,10 @@ import { RecipeService } from '../recipe.service';
 export class RecipeDetail implements OnInit {
   recipe!: Recipe;
   id!: number
+  selectedImage: string = '';
+  showModal: boolean = false;
+  showImages: boolean = false;
+  selectedIndex = 0;
 
   constructor(private recipeService: RecipeService,
     private route: ActivatedRoute
@@ -25,6 +29,15 @@ export class RecipeDetail implements OnInit {
     })
 
   }
+  openImage(img: string, index: number) {
+    this.selectedImage = img;
+    this.selectedIndex = index;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
   onAddToShoppingList() {
     this.recipeService.addIngredientToShoppingList(this.recipe.ingredients);
   }
@@ -36,4 +49,20 @@ export class RecipeDetail implements OnInit {
     this.recipeService.deleteRecipe(this.id);
     this.router.navigate(['recipes'])
   }
+  toggleImages() {
+    this.showImages = !this.showImages;
+  }
+  nextImage() {
+    if (this.selectedIndex < this.recipe.images.length - 1) {
+      this.selectedIndex++;
+      this.selectedImage = this.recipe.images[this.selectedIndex];
+    }
+  }
+  prevImage() {
+    if (this.selectedIndex > 0) {
+      this.selectedIndex--;
+      this.selectedImage = this.recipe.images[this.selectedIndex];
+    }
+  }
 }
+
