@@ -1,0 +1,12 @@
+img {
+  max-height: 120px;
+  object-fit: cover;
+}
+
+.panel {
+  margin-bottom: 15px;
+}
+
+.well h4 {
+  margin-bottom: 15px;
+}

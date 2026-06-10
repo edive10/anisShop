@@ -17,6 +17,7 @@ import { RecipeStart } from './recipes/recipe-start/recipe-start';
 import { RecipeEdit } from './recipes/recipe-edit/recipe-edit';
 import { RecipeService } from './recipes/recipe.service';
 import { BookImages } from './recipes/book-images/book-images';
+import { Cart } from './cart/cart';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { BookImages } from './recipes/book-images/book-images';
     RecipeStart,
     RecipeEdit,
     BookImages,
+    Cart,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [provideBrowserGlobalErrorListeners(), ShoppingListService, RecipeService],

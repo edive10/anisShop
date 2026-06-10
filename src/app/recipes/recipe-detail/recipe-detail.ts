@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
-
+import { CartService } from '../../cart/cart.service';
 @Component({
   selector: 'app-recipe-detail',
   standalone: false,
@@ -18,8 +18,9 @@ export class RecipeDetail implements OnInit {
   selectedIndex = 0;
 
   constructor(private recipeService: RecipeService,
-    private route: ActivatedRoute
-    , private router: Router) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private cartService: CartService) {
 
   }
   ngOnInit() {
@@ -63,6 +64,9 @@ export class RecipeDetail implements OnInit {
       this.selectedIndex--;
       this.selectedImage = this.recipe.images[this.selectedIndex];
     }
+  }
+  onAddToCart() {
+    this.cartService.addToCart(this.recipe, this.id);
   }
 }
 

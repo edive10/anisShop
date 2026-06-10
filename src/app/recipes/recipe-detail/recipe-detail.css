@@ -100,10 +100,10 @@
 
 .close-btn {
   position: absolute;
-  top: -18px;
-  right: -10px;
+  top: -38px;
+  right: -20px;
   font-size: 40px;
-  color: #fff;
+  color: #0383fa;
   cursor: pointer;
   z-index: 3002;
 }
