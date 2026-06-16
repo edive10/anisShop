@@ -35,10 +35,6 @@ export class RecipeList implements OnInit, OnDestroy {
     this.recipes = this.recipeService.getRecipes();
   }
 
-  onNewRecipe() {
-    this.router.navigate(['new'], { relativeTo: this.route });
-  }
-
   // محاسبه کل صفحات بر اساس تعداد کل کتاب‌ها
   get totalPages(): number {
     return Math.ceil(this.recipes.length / this.itemsPerPage);

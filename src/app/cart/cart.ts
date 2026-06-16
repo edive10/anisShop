@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartItem } from './cart-item.model';
 import { CartService } from './cart.service';
@@ -9,21 +9,28 @@ import { CartService } from './cart.service';
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })
-export class Cart implements OnInit, OnDestroy {
+export class Cart implements OnInit {
   items: CartItem[] = [];
   totalPrice: number = 0;
+
   private cartSub!: Subscription;
+
+  @Input() isOpen = false;
+  @Output() close = new EventEmitter<void>();
 
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.items = this.cartService.getItems();
-    this.totalPrice = this.cartService.getTotalPrice();
 
-    this.cartSub = this.cartService.cartChanged.subscribe((items: CartItem[]) => {
+    // فقط از stream جدید گوش بده
+    this.cartSub = this.cartService.items$.subscribe(items => {
       this.items = items;
       this.totalPrice = this.cartService.getTotalPrice();
     });
+  }
+
+  closeCart() {
+    this.close.emit();
   }
 
   increase(id: number) {
@@ -43,8 +50,6 @@ export class Cart implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.cartSub) {
-      this.cartSub.unsubscribe();
-    }
+    if (this.cartSub) this.cartSub.unsubscribe();
   }
 }

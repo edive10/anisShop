@@ -1,8 +1,11 @@
-<app-header></app-header>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <router-outlet></router-outlet>
+<app-header (cartToggle)="toggleCart()"></app-header>
+<div class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
+  <app-cart *ngIf="cartOpen" (close)="closeCart()"></app-cart>
 </div>

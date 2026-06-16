@@ -7,11 +7,12 @@ export class Recipe {
   public ingredients: Ingredient[];
   public images: string[];
   public price!: number
-  constructor(name: string, desc: string, imagePath: string, ingredients: Ingredient[], images: string[]) {
+  constructor(name: string, desc: string, imagePath: string, ingredients: Ingredient[], images: string[], price: number) {
     this.name = name;
     this.description = desc;
     this.imagePath = imagePath;
     this.ingredients = ingredients;
-    this.images = images
+    this.images = images;
+    this.price = price
   }
 }

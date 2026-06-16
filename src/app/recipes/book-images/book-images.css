@@ -61,3 +61,9 @@
   font-size: 30px;
   cursor: pointer;
 }
+.img-responsive{
+  max-width: 400px;
+  height: auto;
+  margin-top: 20px;
+  display: block;
+}

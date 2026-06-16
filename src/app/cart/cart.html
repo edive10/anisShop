@@ -1,55 +1,39 @@
-<div class="container" dir="rtl">
-  <div class="row">
-    <div class="col-xs-12">
-      <h2 class="text-center">سبد خرید</h2>
-      <hr>
-    </div>
+<div class="cart-overlay" (click)="closeCart()"></div>
+
+<div class="cart-popup" dir="rtl">
+  <div class="cart-header">
+    <h4>سبد خرید</h4>
+    <button type="button" class="close-btn" (click)="closeCart()">×</button>
   </div>
 
-  <div class="row" *ngIf="items.length === 0">
-    <div class="col-xs-12">
-      <div class="alert alert-info text-center">
-        سبد خرید شما خالی است.
-      </div>
-    </div>
-  </div>
+  <div class="cart-body" *ngIf="items.length > 0; else emptyCart">
+    <div class="cart-item" *ngFor="let item of items">
+      <img [src]="item.imagePath" [alt]="item.name">
+      <div class="cart-info">
+        <h5>{{ item.name }}</h5>
+        <p>{{ item.price | number:'1.0-0' }} تومان</p>
 
-  <div class="row" *ngIf="items.length > 0">
-    <div class="col-xs-12">
-      <div class="panel panel-default" *ngFor="let item of items">
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-2 col-xs-4">
-              <img [src]="item.imagePath" [alt]="item.name" class="img-responsive img-thumbnail">
-            </div>
-
-            <div class="col-sm-4 col-xs-8">
-              <h4>{{ item.name }}</h4>
-              <p>قیمت: {{ item.price }} تومان</p>
-            </div>
-
-            <div class="col-sm-3 col-xs-12">
-              <div class="btn-group">
-                <button class="btn btn-default" (click)="decrease(item.id)">-</button>
-                <button class="btn btn-default" disabled>{{ item.quantity }}</button>
-                <button class="btn btn-default" (click)="increase(item.id)">+</button>
-              </div>
-            </div>
-
-            <div class="col-sm-3 col-xs-12 text-left">
-              <button class="btn btn-danger" (click)="remove(item.id)">
-                حذف
-              </button>
-            </div>
-          </div>
+        <div class="btn-group">
+          <button class="btn btn-default btn-sm" (click)="decrease(item.id)">-</button>
+          <button class="btn btn-default btn-sm" disabled>{{ item.quantity }}</button>
+          <button class="btn btn-default btn-sm" (click)="increase(item.id)">+</button>
         </div>
       </div>
-
-      <div class="well text-center">
-        <h4>مبلغ کل: {{ totalPrice }} تومان</h4>
-        <button class="btn btn-success btn-lg">ادامه فرایند سفارش</button>
-        <button class="btn btn-warning btn-lg" (click)="clearCart()">خالی کردن سبد</button>
+      <div>
+        <button class="btn btn-danger btn-sm" (click)="remove(item.id)">حذف</button>
       </div>
     </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <div class="alert alert-info text-center">
+      سبد خرید شما خالی است.
+    </div>
+  </ng-template>
+
+  <div class="cart-footer">
+    <h4>مبلغ کل: {{ totalPrice | number:'1.0-0' }} تومان</h4>
+    <button class="btn btn-success">ادامه سفارش</button>
+    <button class="btn btn-warning" (click)="clearCart()">خالی کردن سبد</button>
   </div>
 </div>
