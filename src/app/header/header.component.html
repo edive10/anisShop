@@ -1,48 +1,31 @@
-<nav class="navbar navbar-default custom-navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container-fluid">
+    
+    <!-- لوگو و برند -->
+    <a class="navbar-brand fw-bold" routerLink="/">
+      📚 انتشارات مهرپاینده
+    </a>
 
-    <!-- Brand -->
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">📚 انتشارات مهرپاینده</a>
-    </div>
+    <!-- دکمه موبایل (همبرگری) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- Menu -->
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li routerLinkActive="active">
-          <a routerLink="/recipes">کتاب‌ها</a>
+    <!-- منوها -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/recipes">کتاب‌ها</a>
         </li>
-
-        <li>
-          <a (click)="openCart()" style="cursor: pointer; position: relative;">
+        
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" (click)="openCart()" style="cursor: pointer;">
+            <i class="bi bi-cart"></i> <!-- اگر از Bootstrap Icons استفاده می‌کنید -->
             سبد خرید
-            <span *ngIf="cartCount > 0" class="cart-badge">
+            <span *ngIf="cartCount > 0" class="badge rounded-pill bg-danger ms-2">
               {{ cartCount }}
             </span>
           </a>
-        </li>
-      </ul>
-
-      <!-- Right Menu -->
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown>
-          <a class="dropdown-toggle" style="cursor:pointer">
-            مدیریت <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a>
-                <span class="glyphicon glyphicon-floppy-disk"></span>
-                ذخیره
-              </a>
-            </li>
-            <li>
-              <a>
-                <span class="glyphicon glyphicon-refresh"></span>
-                همگام سازی
-              </a>
-            </li>
-          </ul>
         </li>
       </ul>
     </div>

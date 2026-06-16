@@ -1,77 +1,80 @@
 <div class="home-container">
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-overlay text-center">
-      <h1>انتشارات مهرپاینده</h1>
-
-      <div class="hero-buttons">
-        <a routerLink="/recipes" class="btn btn-warning btn-lg">
-          مشاهده کتاب‌ها
-        </a>
-        <a href="#about-section" class="btn btn-default btn-lg">
-          درباره ما
-        </a>
-      </div>
+  <!-- HERO SLIDER -->
+  <section class="hero-slider">
+    <div class="hero-content">
+      <h1>فروشگاه تخصصی کتاب‌های دانشگاهی</h1>
+      <p>جدیدترین و معتبرترین منابع علمی</p>
+      <a routerLink="/recipes" class="btn btn-warning btn-lg">
+        ورود به فروشگاه
+      </a>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about-section" class="about-section container">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center">
-        <h2>درباره انتشارات</h2>
-        <p>
-          انتشارات مهرپاینده با هدف توسعه دانش تخصصی و تولید محتوای آموزشی با کیفیت،
-          مجموعه‌ای از کتاب‌های دانشگاهی، مهندسی و کاربردی را برای دانشجویان،
-          اساتید و علاقه‌مندان فراهم کرده است.
-        </p>
-      </div>
-    </div>
-  </section>
 
-  <!-- Featured Books -->
+  <!-- FEATURED BOOKS -->
   <section class="featured-section container">
+
     <div class="text-center">
-      <h2>کتاب‌های پیشنهادی</h2>
+      <h2 class="section-title">پرفروش‌ترین کتاب‌ها</h2>
     </div>
 
-    <div class="row featured-books">
+    <div class="row">
 
-      <div class="col-sm-4">
-        <div class="book-card">
-          <div class="book-icon">📘</div>
-          <h4>کتاب اول</h4>
-          <p>یک کتاب تخصصی برای شروع یادگیری عمیق‌تر.</p>
-          <a routerLink="/recipes" class="btn btn-primary btn-sm">
-            مشاهده
-          </a>
-        </div>
-      </div>
+      <div class="col-md-4" *ngFor="let book of books">
 
-      <div class="col-sm-4">
         <div class="book-card">
-          <div class="book-icon">📗</div>
-          <h4>کتاب دوم</h4>
-          <p>مناسب برای دانشجویان و علاقه‌مندان حوزه تخصصی.</p>
-          <a routerLink="/recipes" class="btn btn-primary btn-sm">
-            مشاهده
-          </a>
-        </div>
-      </div>
 
-      <div class="col-sm-4">
-        <div class="book-card">
-          <div class="book-icon">📕</div>
-          <h4>کتاب سوم</h4>
-          <p>یک منبع کاربردی و ارزشمند برای یادگیری بهتر.</p>
-          <a routerLink="/recipes" class="btn btn-primary btn-sm">
-            مشاهده
-          </a>
+          <div class="book-img">
+            <img [src]="book.image" alt="book">
+          </div>
+
+          <div class="book-info">
+            <h4>{{ book.title }}</h4>
+            <p class="price">
+              {{ book.price | number }} تومان
+            </p>
+
+            <button class="btn btn-success btn-block" (click)="addToCart(book)">
+              افزودن به سبد خرید
+            </button>
+          </div>
+
         </div>
+
       </div>
 
     </div>
+
+  </section>
+
+  <section class="newest-section">
+    <div class="container-fluid">
+      <h2 class="section-title">جدیدترین کتاب‌ها</h2>
+
+      <!-- کانتینر اصلی اسنپ اسکرول -->
+      <div class="snap-scroll-wrapper">
+        <div class="book-snap-card" *ngFor="let book of newBooks">
+          <div class="badge-new">جدید</div>
+          <img [src]="book.image" [alt]="book.title">
+          <div class="card-body">
+            <h5>{{ book.title }}</h5>
+            <p class="price">{{ book.price | number }} تومان</p>
+            <button (click)="addToCart(book)" class="btn-buy">
+              افزودن به سبد
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>بیش از 500 عنوان کتاب تخصصی</h2>
+    <a routerLink="/recipes" class="btn btn-warning btn-lg">
+      مشاهده همه کتاب‌ها
+    </a>
   </section>
 
 </div>

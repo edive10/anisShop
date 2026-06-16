@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CartService } from '../cart/cart.service';
-
+import { RecipeService } from '../recipes/recipe.service'; // مسیر را چک کنید
 @Component({
   selector: 'app-header',
   standalone: false,
@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   @Output() cartToggle = new EventEmitter<void>();
 
   cartCount = 0;
-
+  searchQuery: string = '';
   constructor(private cartService: CartService) { }
   ngOnInit(): void {
 
@@ -32,4 +32,5 @@ export class HeaderComponent implements OnInit {
   onToggleCart() {
     this.cartToggle.emit();
   }
+  
 }

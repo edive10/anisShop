@@ -1,6 +1,7 @@
 import { Ingredient } from "../shared/ingredient.model";
 
 export class Recipe {
+  [x: string]: any;
   public name: string;
   public description: string;
   public imagePath: string;
@@ -15,4 +16,10 @@ export class Recipe {
     this.images = images;
     this.price = price
   }
+}
+export interface Review {
+  username: string;
+  comment: string;
+  rating: number;
+  date: Date;
 }

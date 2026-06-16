@@ -18,7 +18,8 @@ import { RecipeEdit } from './recipes/recipe-edit/recipe-edit';
 import { RecipeService } from './recipes/recipe.service';
 import { BookImages } from './recipes/book-images/book-images';
 import { Cart } from './cart/cart';
-import { Home } from './home/home';
+import { HomeComponent } from './home/home.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -35,10 +36,11 @@ import { Home } from './home/home';
     RecipeEdit,
     BookImages,
     Cart,
-    Home,
+    HomeComponent,
+    FilterPipe
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [provideBrowserGlobalErrorListeners(), ShoppingListService, RecipeService],
   bootstrap: [App],
 })
-export class AppModule {}
+export class AppModule { }

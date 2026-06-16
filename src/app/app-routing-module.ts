@@ -7,11 +7,11 @@ import { RecipeStart } from "./recipes/recipe-start/recipe-start";
 import { RecipeDetail } from "./recipes/recipe-detail/recipe-detail";
 import { RecipeEdit } from "./recipes/recipe-edit/recipe-edit";
 import { Cart } from "./cart/cart";
-import { Home } from "./home/home";
+import { HomeComponent } from "./home/home.component";
 
 
 const appRoutes: Routes = [
-  {path:'',component: Home},
+  { path: '', component: HomeComponent },
   //{ path: '', redirectTo: '/recipes', pathMatch: 'full' },
   { path: 'cart', component: Cart },
   {

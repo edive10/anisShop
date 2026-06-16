@@ -1,26 +1,27 @@
-/* ===== NAVBAR ===== */
+/* ===== 1. NAVBAR & LAYOUT ===== */
 .custom-navbar {
   font-family: "Vazirmatn", sans-serif;
   direction: rtl;
   background-color: #1a1a1a;
   border-bottom: 1px solid #333;
   min-height: 65px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-  margin-bottom: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
 }
 
 .navbar-brand {
   color: #fff !important;
   font-weight: bold;
   font-size: 20px;
-  padding-top: 20px;
 }
 
 .navbar-nav > li > a {
-  color: #ccc;
+  color: #ccc !important;
   font-size: 15px;
   padding: 22px 20px;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .navbar-nav > li > a:hover {
@@ -28,66 +29,130 @@
   color: #fff !important;
 }
 
-/* ===== CART BADGE ===== */
-.cart-badge {
-  position: absolute;
-  top: 10px;
-  left: 5px;
-  background: #e53935;
-  color: #fff;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 50%;
-  min-width: 18px;
-  height: 18px;
-  text-align: center;
+/* ===== 2. SEARCH BOX (باکس جستجو) ===== */
+.search-box {
+  position: relative;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
 }
 
-/* ===== DROPDOWN ===== */
+.search-input {
+  background: #333 !important;
+  border: 1px solid #444 !important;
+  color: white !important;
+  border-radius: 20px !important;
+  padding: 6px 35px 6px 15px !important; /* پدینگ راست برای آیکون */
+  transition: all 0.3s ease;
+  width: 180px;
+  outline: none;
+}
+
+.search-input:focus {
+  background: #444 !important;
+  width: 240px;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  color: #888;
+  pointer-events: none;
+}
+
+/* ===== 3. CART & BADGE ===== */
+.cart-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer !important;
+}
+
+.red-badge {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  background-color: #ff3b3b;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid #1a1a1a;
+  transition: 0.3s;
+}
+
+.cart-link:hover .red-badge {
+  transform: scale(1.2);
+}
+
+/* ===== 4. DROPDOWN ===== */
 .dropdown-menu {
   background-color: #222;
+  border: 1px solid #333;
 }
 
 .dropdown-menu > li > a {
   color: #ccc;
   padding: 10px 20px;
+  text-align: right;
 }
 
 .dropdown-menu > li > a:hover {
   background-color: #333;
   color: #fff;
 }
-
-/* ===== HOME PAGE ===== */
-.home-container {
-  direction: rtl;
-  font-family: "Vazirmatn", sans-serif;
-}
-
-.hero-section {
-  background: linear-gradient(rgba(20,20,20,0.7), rgba(20,20,20,0.7)),
-              url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1400&q=80');
-  background-size: cover;
-  background-position: center;
-  min-height: 450px;
-  display: flex;
+/* اجبار هدر به راست‌چین شدن */
+.custom-navbar .container-fluid {
+  display: flex !important;
+  flex-direction: row-reverse; /* برعکس کردن جهت برای RTL */
   align-items: center;
-  justify-content: center;
-  color: #fff;
-  text-align: center;
+  justify-content: space-between;
 }
 
-.book-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: 0.3s;
+.custom-navbar .navbar-header {
+  margin: 0 !important;
+  float: none !important;
 }
 
-.book-card:hover {
-  transform: translateY(-5px);
+.custom-navbar .navbar-collapse {
+  display: flex !important;
+  flex-basis: auto;
+  flex-grow: 1;
+  justify-content: flex-start; /* آیتم‌ها را به سمت راست (در حالت reverse) می‌برد */
+  float: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.custom-navbar .nav.navbar-nav {
+  display: flex !important;
+  flex-direction: row;
+  margin: 0 !important;
+  float: none !important;
+}
+
+.custom-navbar .navbar-nav > li {
+  float: none !important;
+}
+
+/* فاصله بین آیتم‌های منو */
+.custom-navbar .navbar-nav > li > a {
+  padding: 15px 20px;
+}
+
+/* استایل Badge قرمز */
+.red-badge {
+  background-color: #ff3b3b;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 11px;
+  margin-right: 5px;
 }

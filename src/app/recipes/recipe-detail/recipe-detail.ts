@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Recipe } from '../recipe.model';
+import { Recipe, Review } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { CartService } from '../../cart/cart.service';
 import { CartUiService } from '../../cart/cart-ui.service';
@@ -80,4 +80,20 @@ export class RecipeDetail implements OnInit {
     this.cartService.addToCart(this.recipe, this.id);
     this.cartUiService.openCart();
   }
+  onAddReview(name: HTMLInputElement, rating: HTMLSelectElement, comment: HTMLTextAreaElement) {
+  if (name.value && comment.value) {
+    const newReview: Review = {
+      username: name.value,
+      rating: +rating.value,
+      comment: comment.value,
+      date: new Date()
+    };
+    
+    this.recipe.reviews.push(newReview);
+    
+    // خالی کردن فرم
+    name.value = '';
+    comment.value = '';
+  }
+} 
 }

@@ -1,39 +1,57 @@
-<div class="panel panel-primary publisher-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">اطلاعات ناشر</h3>
+<div class="card border-primary publisher-info mb-4">
+  <!-- در نسخه 5 از card-header استفاده می‌کنیم -->
+  <div class="card-header bg-primary text-white">
+    <h5 class="card-title mb-0">اطلاعات ناشر</h5>
   </div>
-  <div class="panel-body text-center"> <!-- text-center برای وسط‌چین شدن لوگو -->
-
+  
+  <div class="card-body text-center">
     <!-- بخش لوگو و نام انتشارات -->
-    <div class="logo-container">
-      <img src="assets/MehrPayandehPub.jpg" alt="آرم انتشارات" class="img-responsive publisher-logo">
-      <h2 class="publisher-name">انتشارات مهر پاینده</h2>
+    <div class="logo-container mb-4">
+      <img src="assets/MehrPayandehPub.jpg" alt="آرم انتشارات" class="img-fluid publisher-logo mb-3" style="max-width: 150px;">
+      <h2 class="publisher-name h4">انتشارات مهر پاینده</h2>
     </div>
 
-    <p class="lead">
-      تنها ناشر کتاب های عروسک های بافتنی اثر فرزانه مستعلی </p>
-    <hr>
+    <p class="lead fs-6 text-muted">
+      تنها ناشر کتاب‌های عروسک‌های بافتنی اثر فرزانه مستعلی
+    </p>
+    <hr class="my-4">
 
-    <div class="row">
-      <div class="col-sm-4 info-item">
-        <span class="glyphicon glyphicon-calendar text-primary"></span>
-        <div class="info-text">
-          <strong>سال فعالیت</strong>
-          <p>1375</p>
+    <!-- گرید سیستم در نسخه 5 کاملاً RTL است -->
+    <div class="row g-3">
+      <div class="col-md-4 info-item">
+        <div class="p-3">
+          <!-- از آنجایی که Glyphicon حذف شده، از یک دایره کوچک یا آیکون جایگزین استفاده می‌کنیم -->
+          <div class="info-icon mb-2 text-primary">
+             <i class="bi bi-calendar3"></i> <!-- نیاز به نصب Bootstrap Icons دارد -->
+          </div>
+          <div class="info-text">
+            <strong class="d-block mb-1">سال فعالیت</strong>
+            <span class="text-secondary">1375</span>
+          </div>
         </div>
       </div>
-      <div class="col-sm-4 info-item">
-        <span class="glyphicon glyphicon-book text-primary"></span>
-        <div class="info-text">
-          <strong>تعداد کتاب‌ها</strong>
-          <p>30 عنوان</p>
+
+      <div class="col-md-4 info-item border-start border-end">
+        <div class="p-3">
+          <div class="info-icon mb-2 text-primary">
+             <i class="bi bi-book"></i>
+          </div>
+          <div class="info-text">
+            <strong class="d-block mb-1">تعداد کتاب‌ها</strong>
+            <span class="text-secondary">30 عنوان</span>
+          </div>
         </div>
       </div>
-      <div class="col-sm-4 info-item">
-        <span class="glyphicon glyphicon-earphone text-primary"></span>
-        <div class="info-text">
-          <strong>راه‌های تماس</strong>
-          <p>0913-131-1247</p>
+
+      <div class="col-md-4 info-item">
+        <div class="p-3">
+          <div class="info-icon mb-2 text-primary">
+             <i class="bi bi-telephone"></i>
+          </div>
+          <div class="info-text">
+            <strong class="d-block mb-1">راه‌های تماس</strong>
+            <span class="text-secondary" dir="ltr">0913-131-1247</span>
+          </div>
         </div>
       </div>
     </div>

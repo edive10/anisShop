@@ -1,0 +1,28 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  direction: rtl;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.pagination .page-link {
+  min-width: 42px;
+  height: 42px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.pagination .page-item {
+  margin: 0 4px;
+}
+
+.pagination .page-item.active .page-link {
+  font-weight: bold;
+}
+.pagination .page-link {
+  transform: scale(1.1);
+}

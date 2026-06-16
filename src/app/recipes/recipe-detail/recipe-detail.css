@@ -1,50 +1,9 @@
-.custom-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1050;
-}
-
-.custom-modal-backdrop {
-  background: rgba(0, 0, 0, 0.6);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.custom-modal-content {
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 10px;
-  border-radius: 6px;
-  max-width: 90%;
-  text-align: center;
-}
-
-.close-btn {
-  font-size: 32px;
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  top: 0;
-}
-
-.book-img {
-  max-width: 400px;
-  height: auto;
-  margin: 0 auto;
-  display: block;
-}
-
+/* ===== 1. گالری تصاویر (Gallery Grid) ===== */
 .gallery-card {
   overflow: hidden;
   border-radius: 8px;
   margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .gallery-img {
@@ -59,8 +18,7 @@
   transform: scale(1.08);
 }
 
-/* مودال */
-
+/* ===== 2. مودال نمایش تصویر (Image Zoom Modal) ===== */
 .image-modal {
   position: fixed;
   inset: 0;
@@ -73,18 +31,18 @@
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.85); /* پس‌زمینه تیره پشت عکس */
 }
 
 .modal-content {
   position: relative;
   z-index: 3001;
   background: #fff;
-  padding: 15px;
+  padding: 10px;
   border-radius: 8px;
   max-width: 90vw;
   max-height: 90vh;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
 
@@ -94,39 +52,82 @@
   max-height: 80vh;
   margin: 0 auto;
   object-fit: contain;
-  background: #fff;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .close-btn {
   position: absolute;
-  top: -38px;
-  right: -20px;
+  top: -45px;
+  right: 0;
   font-size: 40px;
-  color: #0383fa;
+  color: #fff; /* دکمه بستن در حالت مودال سفید باشد بهتر دیده می‌شود */
   cursor: pointer;
-  z-index: 3002;
+  line-height: 1;
 }
 
+/* دکمه‌های بعدی و قبلی در مودال */
 .nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
   border: none;
-  font-size: 34px;
-  width: 44px;
-  height: 44px;
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 3002;
+  transition: 0.3s;
 }
 
-.nav-btn.left {
-  left: -60px;
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
-.nav-btn.right {
-  right: -60px;
+.nav-btn.left { left: -70px; }
+.nav-btn.right { right: -70px; }
+
+/* ===== 3. بخش نظرات (Reviews Section) ===== */
+.reviews-section {
+  margin-top: 50px;
+  padding: 25px;
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  direction: rtl;
+}
+
+.review-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-right: 4px solid #ff3b3b; /* خط قرمز کناری */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.stars {
+  color: #ffc107;
+  font-size: 14px;
+}
+
+.add-review {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px dashed #ccc;
+  margin-top: 30px;
+}
+
+.add-review h4 {
+  margin-bottom: 15px;
+  color: #333;
 }
