@@ -13,18 +13,31 @@
 <div class="row text-center">
   <div class="col-xs-12">
     <nav>
-      <ul class="pagination">
-        <li [class.disabled]="currentPage === 1">
-          <a (click)="onPageChange(currentPage - 1)" style="cursor: pointer;">&laquo;</a>
-        </li>
-        <li *ngFor="let page of pages" [class.active]="page === currentPage">
-          <a (click)="onPageChange(page)" style="cursor: pointer;">{{ page }}</a>
-        </li>
+<div class="stepper-wrapper">
+  <div class="stepper-container">
+    <!-- خط خاکستری پس‌زمینه -->
+    <div class="stepper-line-bg"></div>
+    
+    <!-- خط آبی پیشرفت -->
+    <div class="stepper-line-progress" [style.width]="progressWidth"></div>
 
-        <li [class.disabled]="currentPage === totalPages">
-          <a (click)="onPageChange(currentPage + 1)" style="cursor: pointer;">&raquo;</a>
-        </li>
-      </ul>
+    <!-- دایره‌های شماره صفحه -->
+    <div 
+      *ngFor="let page of pages; let i = index" 
+      class="step-item"
+      [class.active]="page <= currentPage"
+      [class.current]="page === currentPage"
+      (click)="onPageChange(page)"
+    >
+      <div class="step-circle">
+        <span *ngIf="page < currentPage">✔</span>
+        <span *ngIf="page >= currentPage">{{ page }}</span>
+      </div>
+      <div class="step-label">صفحه {{ page }}</div>
+    </div>
+  </div>
+</div>
+
     </nav>
   </div>
 </div>

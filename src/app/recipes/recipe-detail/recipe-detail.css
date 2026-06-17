@@ -7,7 +7,7 @@
 }
 
 .gallery-img {
-  width: 100%;
+  width: 70%;
   height: 220px;
   object-fit: cover;
   cursor: pointer;
@@ -130,4 +130,10 @@
 .add-review h4 {
   margin-bottom: 15px;
   color: #333;
+}
+.book-img {
+    max-width: 50%;  /* مقدار را کمتر کنید تا عکس کوچکتر شود (مثلا ۴۰٪ یا ۵۰٪) */
+    height: auto;    /* برای حفظ تناسب تصویر */
+    display: block;  /* برای اینکه margin کار کند */
+    margin: 0 auto;  /* وسط‌چین کردن عکس */
 }

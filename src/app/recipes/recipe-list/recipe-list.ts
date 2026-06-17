@@ -22,14 +22,14 @@ export class RecipeList implements OnInit, OnDestroy {
     private recipeService: RecipeService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscription = this.recipeService.recipesChanged.subscribe(
       (recipes: Recipe[]) => {
         this.recipes = recipes;
         // وقتی لیست تغییر می‌کند (مثلاً حذفی صورت می‌گیرد)، بهتر است به صفحه اول برگردیم
-        this.currentPage = 1; 
+        this.currentPage = 1;
       }
     );
     this.recipes = this.recipeService.getRecipes();
@@ -55,5 +55,12 @@ export class RecipeList implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  // محاسبه عرض خط آبی رنگ بین دایره‌ها
+  get progressWidth(): string {
+    if (this.pages.length <= 1) return '0%';
+    // محاسبه درصد بر اساس صفحه فعلی
+    const percentage = ((this.currentPage - 1) / (this.pages.length - 1)) * 100;
+    return percentage + '%';
   }
 }

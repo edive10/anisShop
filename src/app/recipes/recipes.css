@@ -45,9 +45,3 @@
 .ingredient-amount {
     color: #666;
 }
-
-/* بزرگتر کردن دکمه مدیریت */
-.btn-lg {
-    padding: 10px 25px;
-    font-size: 18px;
-}

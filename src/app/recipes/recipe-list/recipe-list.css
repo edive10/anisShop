@@ -1,28 +1,94 @@
-.pagination {
-  display: flex;
-  justify-content: center;
+/* ظرف اصلی برای ایجاد فاصله */
+.stepper-wrapper {
+  padding: 40px 20px;
   direction: rtl;
-  margin-top: 20px;
-  font-size: 18px;
 }
 
-.pagination .page-link {
-  min-width: 42px;
-  height: 42px;
-  padding: 0 14px;
+.stepper-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* می‌توانید این مقدار را طبق نیاز تغییر دهید */
+  margin: 0 auto;
+}
+
+/* خطوط میانی */
+.stepper-line-bg, .stepper-line-progress {
+  position: absolute;
+  top: 20px; /* دقیقاً وسط دایره 40 پیکسلی */
+  height: 4px;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.stepper-line-bg {
+  width: 100%;
+  background-color: #e0e0e0;
+}
+
+.stepper-line-progress {
+  background-color: #007bff; /* رنگ اصلی */
+  transition: width 0.4s ease-in-out;
+  z-index: 2;
+}
+
+/* آیتم‌های هر مرحله */
+.step-item {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 3px solid #e0e0e0;
+  border-radius: 50%;
+  display: flex;
   justify-content: center;
-  font-size: 18px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #999;
+  transition: all 0.3s ease;
 }
 
-.pagination .page-item {
-  margin: 0 4px;
+.step-label {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #888;
+  font-weight: 500;
 }
 
-.pagination .page-item.active .page-link {
+/* وضعیت فعال (صفحات قبلی و فعلی) */
+.step-item.active .step-circle {
+  border-color: #007bff;
+  background-color: #fff;
+  color: #007bff;
+}
+
+/* وضعیت صفحه فعلی (بزرگتر شدن دایره) */
+.step-item.current .step-circle {
+  background-color: #007bff;
+  color: #fff;
+  transform: scale(1.15);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+}
+
+.step-item.current .step-label {
+  color: #007bff;
   font-weight: bold;
 }
-.pagination .page-link {
-  transform: scale(1.1);
+
+/* صفحات رد شده */
+.step-item.active:not(.current) .step-circle {
+  background-color: #007bff;
+  color: #fff;
 }

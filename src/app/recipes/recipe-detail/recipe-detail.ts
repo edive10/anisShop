@@ -6,7 +6,7 @@ import { CartService } from '../../cart/cart.service';
 import { CartUiService } from '../../cart/cart-ui.service';
 
 @Component({
-  selector: 'app-recipe-detail',
+  selector: 'app-books-detail',
   standalone: false,
   templateUrl: './recipe-detail.html',
   styleUrl: './recipe-detail.css',
