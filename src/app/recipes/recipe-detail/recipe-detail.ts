@@ -5,6 +5,13 @@ import { RecipeService } from '../recipe.service';
 import { CartService } from '../../cart/cart.service';
 import { CartUiService } from '../../cart/cart-ui.service';
 
+// تعریف ساختار داده‌ای هر نظر
+interface Comment {
+  author: string;
+  text: string;
+  rating: number;
+  date: Date;
+}
 @Component({
   selector: 'app-books-detail',
   standalone: false,
@@ -18,6 +25,13 @@ export class RecipeDetail implements OnInit {
   showModal: boolean = false;
   showImages: boolean = false;
   selectedIndex = 0;
+  comments: Comment[] = [];
+
+
+  // متغیرهای متصل به فرم نظرات
+  newAuthor = '';
+  newText = '';
+  newRating = 5; // امتیاز پیش‌فرض
 
   constructor(
     private recipeService: RecipeService,
@@ -25,9 +39,10 @@ export class RecipeDetail implements OnInit {
     private router: Router,
     private cartService: CartService,
     private cartUiService: CartUiService
-  ) {}
+  ) { }
 
   ngOnInit() {
+    this.loadComments();
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.recipe = this.recipeService.getRecipe(this.id);
@@ -81,19 +96,81 @@ export class RecipeDetail implements OnInit {
     this.cartUiService.openCart();
   }
   onAddReview(name: HTMLInputElement, rating: HTMLSelectElement, comment: HTMLTextAreaElement) {
-  if (name.value && comment.value) {
-    const newReview: Review = {
-      username: name.value,
-      rating: +rating.value,
-      comment: comment.value,
+    if (name.value && comment.value) {
+      const newReview: Review = {
+        username: name.value,
+        rating: +rating.value,
+        comment: comment.value,
+        date: new Date()
+      };
+
+      this.recipe.reviews.push(newReview);
+
+      // خالی کردن فرم
+      name.value = '';
+      comment.value = '';
+    }
+  }
+  // لود کردن نظرات از LocalStorage بر اساس نام یا آی‌دی کتاب
+  loadComments() {
+    // اگر هنوز دیتای کتاب لود نشده، خارج شو
+    if (!this.recipe) return;
+
+    const savedComments = localStorage.getItem('comments_' + this.recipe.name);
+    if (savedComments) {
+      this.comments = JSON.parse(savedComments);
+    } else {
+      this.comments = [
+        {
+          author: 'سارا احمدی',
+          text: 'بسیار کتاب روان و کاربردی بود.',
+          rating: 5,
+          date: new Date()
+        }
+      ];
+      this.saveComments();
+    }
+  }
+
+  saveComments() {
+    if (!this.recipe) return;
+    localStorage.setItem('comments_' + this.recipe.name, JSON.stringify(this.comments));
+  }
+
+  // ثبت امتیاز ستاره‌ای جدید
+  setRating(stars: number) {
+    this.newRating = stars;
+  }
+
+  // ارسال نظر جدید
+  onSubmitComment() {
+    if (!this.newAuthor.trim() || !this.newText.trim()) {
+      alert('لطفاً نام و متن نظر خود را وارد کنید.');
+      return;
+    }
+
+    const comment: Comment = {
+      author: this.newAuthor,
+      text: this.newText,
+      rating: this.newRating,
       date: new Date()
     };
-    
-    this.recipe.reviews.push(newReview);
-    
-    // خالی کردن فرم
-    name.value = '';
-    comment.value = '';
+
+    // اضافه کردن نظر جدید به ابتدای لیست
+    this.comments.unshift(comment);
+    this.saveComments();
+
+    // ریست کردن فرم پس از ارسال موفق
+    this.newAuthor = '';
+    this.newText = '';
+    this.newRating = 5;
   }
-} 
+
+  // محاسبه میانگین امتیاز کتاب
+  getAverageRating(): number {
+    if (this.comments.length === 0) return 0;
+    const sum = this.comments.reduce((total, comment) => total + comment.rating, 0);
+    return Math.round((sum / this.comments.length) * 10) / 10;
+  }
+
 }

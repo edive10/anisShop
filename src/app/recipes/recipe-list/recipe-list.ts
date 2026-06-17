@@ -1,3 +1,4 @@
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
@@ -9,6 +10,18 @@ import { Subscription } from 'rxjs';
   standalone: false,
   templateUrl: './recipe-list.html',
   styleUrl: './recipe-list.css',
+  animations: [
+    trigger('listAnimation', [
+      transition('* <=> *', [ // هر بار که داده‌ها تغییر کردند
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger('100ms', [
+            animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ])
+  ]
 })
 export class RecipeList implements OnInit, OnDestroy {
   recipes!: Recipe[];

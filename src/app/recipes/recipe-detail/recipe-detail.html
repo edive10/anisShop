@@ -93,23 +93,86 @@
   <hr>
 
   <!-- فرم ثبت نظر جدید -->
-  <div class="add-review">
-    <h4>ثبت نظر جدید</h4>
-    <div class="form-group">
-      <input type="text" #nameInput class="form-control" placeholder="نام شما">
+  <div class="card comment-form-card mb-5">
+    <div class="card-body">
+      <h4 class="form-title mb-4">امتیاز و دیدگاه خود را بنویسید</h4>
+      
+      <div class="form-group mb-3">
+        <label class="form-label">امتیاز شما:</label>
+        <!-- ستاره‌های تعاملی و کلیک‌شدنی -->
+        <div class="star-rating">
+          <span 
+            *ngFor="let star of [1,2,3,4,5]" 
+            class="star" 
+            [class.filled]="star <= newRating"
+            (click)="setRating(star)">
+            ★
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="author" class="form-label">نام و نام خانوادگی</label>
+        <input 
+          type="text" 
+          id="author" 
+          class="form-control" 
+          [(ngModel)]="newAuthor" 
+          placeholder="مثال: علی رضایی" required>
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="commentText" class="form-label">متن دیدگاه</label>
+        <textarea 
+          id="commentText" 
+          rows="4" 
+          class="form-control" 
+          [(ngModel)]="newText" 
+          placeholder="نظرتان را درباره این کتاب بنویسید..." required></textarea>
+      </div>
+
+      <button 
+        type="button" 
+        class="btn btn-primary submit-comment-btn" 
+        (click)="onSubmitComment()">
+        ثبت دیدگاه ارزشمند شما
+      </button>
     </div>
-    <div class="form-group">
-      <select #ratingInput class="form-control">
-        <option value="5">۵ ستاره (عالی)</option>
-        <option value="4">۴ ستاره</option>
-        <option value="3">۳ ستاره</option>
-        <option value="2">۲ ستاره</option>
-        <option value="1">۱ ستاره</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <textarea #commentInput class="form-control" rows="3" placeholder="متن نظر..."></textarea>
-    </div>
-    <button class="btn btn-primary" (click)="onAddReview(nameInput, ratingInput, commentInput)">ثبت نظر</button>
   </div>
+
+  <!-- لیست نظرات ثبت شده -->
+  <div class="comments-list">
+    <div *ngIf="comments.length === 0" class="text-center text-muted py-4">
+      هنوز نظری برای این کتاب ثبت نشده است. اولین نفری باشید که نظر می‌دهد!
+    </div>
+
+    <div class="card comment-item-card mb-3" *ngFor="let comment of comments">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <!-- اطلاعات نویسنده -->
+          <div class="d-flex align-items-center">
+            <div class="user-avatar">
+              {{ comment.author.charAt(0) }}
+            </div>
+            <div class="mr-3">
+              <h5 class="user-name mb-0">{{ comment.author }}</h5>
+              <small class="comment-date text-muted">{{ comment.date | date:'yyyy/MM/dd' }}</small>
+            </div>
+          </div>
+          <!-- امتیاز کاربر -->
+          <div class="user-stars">
+            <span 
+              *ngFor="let star of [1,2,3,4,5]" 
+              class="star-mini" 
+              [class.filled]="star <= comment.rating">
+              ★
+            </span>
+          </div>
+        </div>
+        <!-- متن نظر -->
+        <p class="comment-text mb-0">{{ comment.text }}</p>
+      </div>
+    </div>
+  </div>
+
 </div>

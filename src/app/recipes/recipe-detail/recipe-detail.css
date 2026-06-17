@@ -3,7 +3,7 @@
   overflow: hidden;
   border-radius: 8px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .gallery-img {
@@ -31,7 +31,8 @@
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85); /* پس‌زمینه تیره پشت عکس */
+  background: rgba(0, 0, 0, 0.85);
+  /* پس‌زمینه تیره پشت عکس */
 }
 
 .modal-content {
@@ -60,7 +61,8 @@
   top: -45px;
   right: 0;
   font-size: 40px;
-  color: #fff; /* دکمه بستن در حالت مودال سفید باشد بهتر دیده می‌شود */
+  color: #fff;
+  /* دکمه بستن در حالت مودال سفید باشد بهتر دیده می‌شود */
   cursor: pointer;
   line-height: 1;
 }
@@ -85,8 +87,13 @@
   background: rgba(255, 255, 255, 0.4);
 }
 
-.nav-btn.left { left: -70px; }
-.nav-btn.right { right: -70px; }
+.nav-btn.left {
+  left: -70px;
+}
+
+.nav-btn.right {
+  right: -70px;
+}
 
 /* ===== 3. بخش نظرات (Reviews Section) ===== */
 .reviews-section {
@@ -103,7 +110,8 @@
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 15px;
-  border-right: 4px solid #ff3b3b; /* خط قرمز کناری */
+  border-right: 4px solid #ff3b3b;
+  /* خط قرمز کناری */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -131,9 +139,185 @@
   margin-bottom: 15px;
   color: #333;
 }
+
 .book-img {
-    max-width: 50%;  /* مقدار را کمتر کنید تا عکس کوچکتر شود (مثلا ۴۰٪ یا ۵۰٪) */
-    height: auto;    /* برای حفظ تناسب تصویر */
-    display: block;  /* برای اینکه margin کار کند */
-    margin: 0 auto;  /* وسط‌چین کردن عکس */
+  max-width: 50%;
+  /* مقدار را کمتر کنید تا عکس کوچکتر شود (مثلا ۴۰٪ یا ۵۰٪) */
+  height: auto;
+  /* برای حفظ تناسب تصویر */
+  display: block;
+  /* برای اینکه margin کار کند */
+  margin: 0 auto;
+  /* وسط‌چین کردن عکس */
+}
+
+/* بخش کلی نظرات */
+.comments-section {
+  direction: rtl;
+  text-align: right;
+  margin-top: 40px;
+  font-family: inherit;
+}
+
+.comment-divider {
+  border-top: 2px dashed #ddd;
+  margin: 50px 0;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* میانگین امتیاز */
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #6f42c1, #563d7c);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(111, 66, 193, 0.2);
+}
+
+.rating-num {
+  font-size: 1.3rem;
+  margin-left: 5px;
+}
+
+.rating-star-icon {
+  color: #ffc107;
+  font-size: 1.2rem;
+  margin-left: 8px;
+}
+
+/* کارت فرم */
+.comment-form-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background-color: #fafbfc;
+}
+
+.form-title {
+  color: #444;
+  font-weight: 700;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  border: 1.5px solid #e1e4e8;
+  border-radius: 10px;
+  padding: 12px;
+  transition: all 0.3s;
+}
+
+.form-control:focus {
+  border-color: #6f42c1;
+  box-shadow: 0 0 0 3px rgba(111, 66, 193, 0.15);
+  background-color: #fff;
+}
+
+/* سیستم ستاره‌دهی */
+.star-rating {
+  direction: ltr;
+  display: inline-flex;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.star {
+  color: #ccc;
+  margin-right: 5px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.star.filled {
+  color: #ffc107;
+  text-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
+}
+
+/* دکمه ارسال */
+.submit-comment-btn {
+  background: #6f42c1;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.submit-comment-btn:hover {
+  background: #563d7c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3);
+}
+
+/* لیست نظرات */
+.comment-item-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border-right: 4px solid #6f42c1;
+  transition: transform 0.2s;
+}
+
+.comment-item-card:hover {
+  transform: translateY(-1px);
+}
+
+/* آواتار دایره‌ای کاربر */
+.user-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #e2d9f3;
+  color: #6f42c1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.user-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-text {
+  color: #555;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* ستاره‌های نمایش امتیاز در نظر */
+.user-stars {
+  direction: ltr;
+}
+
+.star-mini {
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+.star-mini.filled {
+  color: #ffc107;
+}
+
+/* راست‌چین کردن در موبایل */
+.mr-3 {
+  margin-right: 15px;
 }

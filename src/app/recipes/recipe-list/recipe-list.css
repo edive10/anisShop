@@ -92,3 +92,12 @@
   background-color: #007bff;
   color: #fff;
 }
+app-recipe-item {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+app-recipe-item:hover {
+  transform: scale(1.03); /* یک افکت کوچک هنگام هاور کردن روی کتاب */
+  z-index: 10;
+}

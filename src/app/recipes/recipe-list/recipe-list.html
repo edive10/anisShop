@@ -1,42 +1,60 @@
+<!-- فاصله بالا -->
 <div class="row">
 </div>
+
 <hr>
+
+<!-- ✅ لیست کتاب‌ها با انیمیشن -->
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12" [@listAnimation]="currentPage">
+    
     <app-recipe-item
-      *ngFor="let recipeEl of recipes | slice:(currentPage-1)*itemsPerPage : currentPage*itemsPerPage; let i = index"
-      [recipe]="recipeEl" [index]="recipes.indexOf(recipeEl)">
+      *ngFor="let recipeEl of recipes 
+              | slice:(currentPage-1)*itemsPerPage : currentPage*itemsPerPage; 
+              let i = index"
+      [recipe]="recipeEl"
+      [index]="recipes.indexOf(recipeEl)">
     </app-recipe-item>
+
   </div>
 </div>
 
+<!-- ✅ Pagination Stepper -->
 <div class="row text-center">
   <div class="col-xs-12">
     <nav>
-<div class="stepper-wrapper">
-  <div class="stepper-container">
-    <!-- خط خاکستری پس‌زمینه -->
-    <div class="stepper-line-bg"></div>
-    
-    <!-- خط آبی پیشرفت -->
-    <div class="stepper-line-progress" [style.width]="progressWidth"></div>
 
-    <!-- دایره‌های شماره صفحه -->
-    <div 
-      *ngFor="let page of pages; let i = index" 
-      class="step-item"
-      [class.active]="page <= currentPage"
-      [class.current]="page === currentPage"
-      (click)="onPageChange(page)"
-    >
-      <div class="step-circle">
-        <span *ngIf="page < currentPage">✔</span>
-        <span *ngIf="page >= currentPage">{{ page }}</span>
+      <div class="stepper-wrapper">
+        <div class="stepper-container">
+
+          <!-- خط خاکستری پس‌زمینه -->
+          <div class="stepper-line-bg"></div>
+
+          <!-- خط آبی پیشرفت -->
+          <div class="stepper-line-progress"
+               [style.width]="progressWidth">
+          </div>
+
+          <!-- دایره‌های شماره صفحه -->
+          <div 
+            *ngFor="let page of pages; let i = index" 
+            class="step-item"
+            [class.active]="page <= currentPage"
+            [class.current]="page === currentPage"
+            (click)="onPageChange(page)"
+          >
+            <div class="step-circle">
+              <span *ngIf="page < currentPage">✔</span>
+              <span *ngIf="page >= currentPage">{{ page }}</span>
+            </div>
+
+            <div class="step-label">
+              صفحه {{ page }}
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="step-label">صفحه {{ page }}</div>
-    </div>
-  </div>
-</div>
 
     </nav>
   </div>

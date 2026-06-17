@@ -7,7 +7,7 @@ import { RecipeService } from '../recipes/recipe.service'; // مسیر را چک
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
-
+  isMenuCollapsed = true;
   @Output() cartToggle = new EventEmitter<void>();
 
   cartCount = 0;
@@ -32,5 +32,5 @@ export class HeaderComponent implements OnInit {
   onToggleCart() {
     this.cartToggle.emit();
   }
-  
+
 }

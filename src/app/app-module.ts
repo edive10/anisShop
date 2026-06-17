@@ -20,6 +20,7 @@ import { BookImages } from './recipes/book-images/book-images';
 import { Cart } from './cart/cart';
 import { HomeComponent } from './home/home.component';
 import { FilterPipe } from './filter.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { FilterPipe } from './filter.pipe';
     HomeComponent,
     FilterPipe
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
   providers: [provideBrowserGlobalErrorListeners(), ShoppingListService, RecipeService],
   bootstrap: [App],
 })
