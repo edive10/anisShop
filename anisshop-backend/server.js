@@ -1,3 +1,5 @@
+require('dotenv').config(); // بارگذاری متغیرهای امن
+
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
@@ -11,9 +13,6 @@ const PORT = 3000;
 
 /* ---------- MongoDB Connection ---------- */
 
-mongoose.connect('mongodb://127.0.0.1:27017/anisshop')
-.then(() => console.log("✅ MongoDB connected"))
-.catch(err => console.log(err));
 
 /* ---------- Static Assets ---------- */
 
@@ -23,17 +22,32 @@ app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
 
 const bookSchema = new mongoose.Schema({
   name: String,
+  author: String,
   description: String,
   price: Number,
-  image: String
+  image: String,
+  category: String,
+  stock: Number,
+  pages: Number,
+  language: String,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
+
 
 const reviewSchema = new mongoose.Schema({
   bookId: mongoose.Schema.Types.ObjectId,
   author: String,
   text: String,
-  rating: Number
+  rating: Number,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
+
 
 const Book = mongoose.model("Book", bookSchema);
 const Review = mongoose.model("Review", reviewSchema);
@@ -88,6 +102,14 @@ app.post('/books/:id/reviews', async (req, res) => {
 
 /* ---------- Start Server ---------- */
 
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("✅ MongoDB Atlas connected");
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Backend running on http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error("❌ MongoDB connection error:", err);
+  });

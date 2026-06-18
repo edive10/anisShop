@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CartService } from '../cart/cart.service';
 import { ApiService } from '../services/api.services';
 
@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private api: ApiService
+    private api: ApiService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -26,6 +27,8 @@ export class HomeComponent implements OnInit {
     this.api.getBooks().subscribe({
       next: (data: any) => {
         this.books = data;
+        this.cdr.detectChanges();
+        console.log('Books loaded from DB:', this.books);
       },
       error: (err) => {
         console.error("Error loading books", err);
