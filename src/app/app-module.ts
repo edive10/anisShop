@@ -22,6 +22,8 @@ import { HomeComponent } from './home/home.component';
 import { FilterPipe } from './filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { AddBook } from './add-book/add-book';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,10 +41,23 @@ import { provideHttpClient } from '@angular/common/http';
     BookImages,
     Cart,
     HomeComponent,
-    FilterPipe
+    FilterPipe,
+    AddBook,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
-  providers: [provideBrowserGlobalErrorListeners(), ShoppingListService, RecipeService, provideHttpClient()],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+  ],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    ShoppingListService,
+    RecipeService,
+    provideHttpClient(),
+  ],
   bootstrap: [App],
 })
 export class AppModule { }

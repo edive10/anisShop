@@ -8,12 +8,13 @@ import { RecipeDetail } from "./recipes/recipe-detail/recipe-detail";
 import { RecipeEdit } from "./recipes/recipe-edit/recipe-edit";
 import { Cart } from "./cart/cart";
 import { HomeComponent } from "./home/home.component";
-
+import { AddBook } from './add-book/add-book';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   //{ path: '', redirectTo: '/recipes', pathMatch: 'full' },
   { path: 'cart', component: Cart },
+  { path: 'add-book', component: AddBook },
   {
     path: 'recipes', component: Recipes, children: [
       { path: '', component: RecipeStart },

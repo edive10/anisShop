@@ -68,9 +68,13 @@ app.get('/books/:id', async (req, res) => {
 
 // اضافه کردن کتاب (برای تست)
 app.post('/books', async (req, res) => {
-  const book = new Book(req.body);
-  await book.save();
-  res.json(book);
+  try {
+    const book = new Book(req.body);
+    await book.save();
+    res.status(201).json(book);
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding book', error });
+  }
 });
 
 /* ---------- Reviews API ---------- */
