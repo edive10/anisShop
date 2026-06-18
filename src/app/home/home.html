@@ -27,7 +27,7 @@
         <div class="book-card">
           <div class="book-img">
             <!-- اتصال به پوشه assets در بک‌اند -->
-            <img [src]="'http://localhost:3000/assets/' + book.image" [alt]="book.name" class="img-fluid">
+            <img [src]="'http://localhost:3000/uploads/' + book.image">
           </div>
 
           <div class="book-info">
@@ -50,13 +50,12 @@
   </section>
 
   <!-- NEWEST SECTION (اسکرول افقی جدیدترین‌ها) -->
-  <section class="newest-section py-5 bg-light">
+  <!-- <section class="newest-section py-5 bg-light">
     <div class="container-fluid">
       <div class="container">
         <h2 class="section-title mb-4">جدیدترین کتاب‌ها</h2>
       </div>
 
-      <!-- کانتینر اصلی اسنپ اسکرول -->
       <div class="snap-scroll-wrapper">
         <div class="book-snap-card" *ngFor="let book of books">
           <div class="badge-new">جدید</div>
@@ -71,7 +70,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- CTA (دعوت به اقدام) -->
   <section class="cta-section text-center py-5 bg-dark text-white">

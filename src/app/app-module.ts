@@ -24,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { AddBook } from './add-book/add-book';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
+import { EditBook } from './admin/edit-book/edit-book';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     FilterPipe,
     AddBook,
+    AdminDashboard,
+    EditBook,
   ],
   imports: [
     BrowserModule,
@@ -60,4 +64,4 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}

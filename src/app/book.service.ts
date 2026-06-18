@@ -22,7 +22,7 @@ export class BookService {
 
   private apiUrl = 'http://localhost:3000/books';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(this.apiUrl);
@@ -32,8 +32,10 @@ export class BookService {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
   }
 
-  addBook(book: Book): Observable<Book> {
+  addBook(book: FormData): Observable<Book> {
     return this.http.post<Book>(this.apiUrl, book);
   }
-
+  updateBook(id: string, book: any) {
+    return this.http.put(`${this.apiUrl}/${id}`, book);
+  }
 }
