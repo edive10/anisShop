@@ -21,6 +21,7 @@ import { Cart } from './cart/cart';
 import { HomeComponent } from './home/home.component';
 import { FilterPipe } from './filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FilterPipe
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
-  providers: [provideBrowserGlobalErrorListeners(), ShoppingListService, RecipeService],
+  providers: [provideBrowserGlobalErrorListeners(), ShoppingListService, RecipeService, provideHttpClient()],
   bootstrap: [App],
 })
 export class AppModule { }

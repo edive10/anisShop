@@ -4,61 +4,65 @@
   <section class="hero-slider">
     <div class="hero-content">
       <h1>فروشگاه تخصصی کتاب‌های دانشگاهی</h1>
-      <p>جدیدترین و معتبرترین منابع علمی</p>
-      <a routerLink="/recipes" class="btn btn-warning btn-lg">
+      <p>جدیدترین و معتبرترین منابع علمی را از ما بخواهید</p>
+      <a routerLink="/books" class="btn btn-warning btn-lg">
         ورود به فروشگاه
       </a>
     </div>
   </section>
 
 
-  <!-- FEATURED BOOKS -->
-  <section class="featured-section container">
+  <!-- FEATURED BOOKS (پرفروش‌ترین‌ها) -->
+  <section class="featured-section container mt-5">
 
-    <div class="text-center">
+    <div class="text-center mb-4">
       <h2 class="section-title">پرفروش‌ترین کتاب‌ها</h2>
+      <hr style="width: 100px; border: 2px solid #ffc107; margin: auto;">
     </div>
 
     <div class="row">
-
-      <div class="col-md-4" *ngFor="let book of books">
+      <!-- تکرار کارت‌ها بر اساس داده‌های دیتابیس -->
+      <div class="col-md-4 mb-4" *ngFor="let book of books">
 
         <div class="book-card">
-
           <div class="book-img">
-            <img [src]="book.image" alt="book">
+            <!-- اتصال به پوشه assets در بک‌اند -->
+            <img [src]="'http://localhost:3000/assets/' + book.image" [alt]="book.name" class="img-fluid">
           </div>
 
           <div class="book-info">
-            <h4>{{ book.title }}</h4>
+            <!-- استفاده از فیلد name مطابق با دیتابیس MongoDB -->
+            <h4>{{ book.name }}</h4>
             <p class="price">
               {{ book.price | number }} تومان
             </p>
 
-            <button class="btn btn-success btn-block" (click)="addToCart(book)">
+            <!-- دکمه عملیاتی برای نمایش در ارائه -->
+            <button class="btn btn-success btn-block w-100" (click)="addToCart(book)">
               افزودن به سبد خرید
             </button>
           </div>
-
         </div>
 
       </div>
-
     </div>
 
   </section>
 
-  <section class="newest-section">
+  <!-- NEWEST SECTION (اسکرول افقی جدیدترین‌ها) -->
+  <section class="newest-section py-5 bg-light">
     <div class="container-fluid">
-      <h2 class="section-title">جدیدترین کتاب‌ها</h2>
+      <div class="container">
+        <h2 class="section-title mb-4">جدیدترین کتاب‌ها</h2>
+      </div>
 
       <!-- کانتینر اصلی اسنپ اسکرول -->
       <div class="snap-scroll-wrapper">
-        <div class="book-snap-card" *ngFor="let book of newBooks">
+        <div class="book-snap-card" *ngFor="let book of books">
           <div class="badge-new">جدید</div>
-          <img [src]="book.image" [alt]="book.title">
-          <div class="card-body">
-            <h5>{{ book.title }}</h5>
+          <img [src]="'http://localhost:3000/assets/' + book.image" [alt]="book.name">
+          <div class="card-body text-center">
+            <h5>{{ book.name }}</h5>
             <p class="price">{{ book.price | number }} تومان</p>
             <button (click)="addToCart(book)" class="btn-buy">
               افزودن به سبد
@@ -69,10 +73,11 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <h2>بیش از 500 عنوان کتاب تخصصی</h2>
-    <a routerLink="/recipes" class="btn btn-warning btn-lg">
+  <!-- CTA (دعوت به اقدام) -->
+  <section class="cta-section text-center py-5 bg-dark text-white">
+    <h2>بیش از ۵۰۰ عنوان کتاب تخصصی و نایاب</h2>
+    <p>ارسال رایگان برای خریدهای بالای ۵۰۰ هزار تومان</p>
+    <a routerLink="/books" class="btn btn-warning btn-lg">
       مشاهده همه کتاب‌ها
     </a>
   </section>
