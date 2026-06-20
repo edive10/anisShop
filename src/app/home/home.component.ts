@@ -1,6 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CartService } from '../cart/cart.service';
 import { ApiService } from '../services/api.services';
+import { BookService } from '../book.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -11,28 +15,44 @@ import { ApiService } from '../services/api.services';
 export class HomeComponent implements OnInit {
 
   books: any[] = [];   // ✅ از API پر میشه
-
+  bestSellers: any[] = [];
+  newArrivals: any[] = [];
   constructor(
     private cartService: CartService,
     private api: ApiService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private bookService: BookService,
+    private router: Router
   ) { }
-
+  @HostListener('window:focus')
+  onFocus() {
+    this.loadBooks();
+  }
   ngOnInit() {
     this.loadBooks();
+
+    // ✅ هر بار مسیر عوض شد دوباره داده بگیر
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.loadBooks();
+      });
+
   }
 
   // ✅ گرفتن کتاب‌ها از بک‌اند
   loadBooks() {
-    this.api.getBooks().subscribe({
-      next: (data: any) => {
-        this.books = data;
-        this.cdr.detectChanges();
-        console.log('Books loaded from DB:', this.books);
-      },
-      error: (err) => {
-        console.error("Error loading books", err);
-      }
+    this.bookService.getBooks().subscribe((data: any[]) => {
+
+      // فقط کتاب‌های فعال
+      this.books = data.filter(b => b.isActive);
+
+      // پرفروش‌ها
+      this.bestSellers = this.books.filter(b => b.isBestSeller);
+
+      // جدیدترین‌ها
+      this.newArrivals = this.books.filter(b => b.isNewArrival);
+
     });
   }
 

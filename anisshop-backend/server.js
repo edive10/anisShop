@@ -8,7 +8,7 @@ const multer = require('multer');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+const fs = require('fs');
 const PORT = 3000;
 
 /* ---------- MongoDB Connection ---------- */
@@ -21,34 +21,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 /* ---------- Schemas ---------- */
 
 const bookSchema = new mongoose.Schema({
-
   name: String,
   author: String,
-  description: String,
   price: Number,
   image: String,
-  category: String,
-  stock: Number,
-  pages: Number,
-  language: String,
-
-  isBestSeller: {
-    type: Boolean,
-    default: false
-  },
-
-  isNew: {
-    type: Boolean,
-    default: false
-  },
-
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-
+  isBestSeller: { type: Boolean, default: false },
+  isNewArrival: { type: Boolean, default: false },
+  isActive: { type: Boolean, default: true },
+  discount: { type: Number, default: 0 } // درصد تخفیف
 });
-
 
 const reviewSchema = new mongoose.Schema({
   bookId: mongoose.Schema.Types.ObjectId,
@@ -78,8 +59,13 @@ const upload = multer({ storage: storage });
 
 // گرفتن همه کتاب‌ها
 app.get('/books', async (req, res) => {
-  const books = await Book.find();
-  res.json(books);
+  try {
+    const books = await Book.find(); // مطمئن شو مدل Book ایمپورت شده باشد
+    res.json(books);
+  } catch (err) {
+    console.log(err); // این خطا در ترمینال بک‌اند چاپ می‌شود
+    res.status(500).send("خطا در سرور");
+  }
 });
 
 // گرفتن یک کتاب
@@ -100,7 +86,42 @@ app.get('/books/:id/reviews', async (req, res) => {
 
   res.json(bookReviews);
 });
+app.delete('/books/:id', async (req, res) => {
 
+  try {
+
+    const book = await Book.findById(req.params.id);
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    // حذف تصویر از سرور
+    if (book.image) {
+
+      const imagePath = path.join(__dirname, 'uploads', book.image);
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+
+    }
+
+    // حذف کتاب از دیتابیس
+    await Book.findByIdAndDelete(req.params.id);
+
+    res.json({ message: "Book deleted successfully" });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: "Error deleting book",
+      error
+    });
+
+  }
+
+});
 // اضافه کردن نظر
 app.post('/books/:id/reviews', async (req, res) => {
 
