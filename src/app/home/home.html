@@ -98,9 +98,32 @@
             </div>
             <div class="book-info text-center">
               <h5>{{ book.name }}</h5>
-              <p class="price">
-                {{ book.price | number }} تومان
-              </p>
+              <div class="price-box">
+
+                <ng-container *ngIf="hasDiscount(book); else normalPrice">
+
+                  <p class="old-price">
+                    {{ book.price | number }} تومان
+                  </p>
+
+                  <p class="new-price">
+                    {{ getDiscountedPrice(book) | number }} تومان
+                  </p>
+
+                  <span class="discount-badge">
+                    {{ book.discount }}٪ تخفیف
+                  </span>
+
+                </ng-container>
+
+                <ng-template #normalPrice>
+                  <p class="normal-price">
+                    {{ book.price | number }} تومان
+                  </p>
+                </ng-template>
+
+              </div>
+
 
               <button class="btn btn-success w-100" (click)="addToCart(book)">
                 افزودن به سبد

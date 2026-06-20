@@ -265,3 +265,36 @@
 .btn-buy:hover {
   background: #0056b3;
 }
+
+.price-box {
+  margin-top: 10px;
+}
+
+.old-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 14px;
+  margin: 0;
+}
+
+.new-price {
+  color: #e53935;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 4px 0;
+}
+
+.normal-price {
+  color: #222;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.discount-badge {
+  display: inline-block;
+  background: #e53935;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}

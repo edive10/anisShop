@@ -39,6 +39,15 @@ export class HomeComponent implements OnInit {
       });
 
   }
+  hasDiscount(book: any): boolean {
+    return book.discount && Number(book.discount) > 0;
+  }
+  getDiscountedPrice(book: any): number {
+    const price = Number(book.price) || 0;
+    const discount = Number(book.discount) || 0;
+
+    return price - (price * discount / 100);
+  }
 
   // ✅ گرفتن کتاب‌ها از بک‌اند
   loadBooks() {
