@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Observable, BehaviorSubject } from 'rxjs';
 export interface Book {
   _id?: string;
   name: string;
@@ -21,7 +20,12 @@ export interface Book {
 export class BookService {
 
   private apiUrl = 'http://localhost:3000/books';
+  private booksUpdated = new BehaviorSubject<boolean>(false);
+  booksUpdated$ = this.booksUpdated.asObservable();
 
+  notifyBooksChanged() {
+    this.booksUpdated.next(true);
+  }
   constructor(private http: HttpClient) { }
 
   getBooks() {

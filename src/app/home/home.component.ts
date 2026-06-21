@@ -1,10 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CartService } from '../cart/cart.service';
-import { ApiService } from '../services/api.services';
 import { BookService } from '../book.service';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { HostListener } from '@angular/core';
+import { SocketService } from '../services/socketService';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,74 +10,84 @@ import { HostListener } from '@angular/core';
   standalone: false,
   styleUrls: ['./home.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  private booksChangedSub?: Subscription;
+  private booksUpdatedSub?: Subscription;
 
-  books: any[] = [];   // ✅ از API پر میشه
+  books: any[] = [];
   bestSellers: any[] = [];
   newArrivals: any[] = [];
+
   constructor(
     private cartService: CartService,
-    private api: ApiService,
-    private cdr: ChangeDetectorRef,
     private bookService: BookService,
-    private router: Router
+    private socketService: SocketService
   ) { }
+
+  ngOnInit() {
+    this.loadBooks();
+
+    // اگر در همان تب از Admin به Home برگردی، این هم کمک می‌کند.
+    this.booksUpdatedSub = this.bookService.booksUpdated$.subscribe(() => {
+      this.loadBooks();
+    });
+
+    // وقتی بک‌اند با Socket.io اعلام کند کتاب‌ها تغییر کرده‌اند، Home آپدیت می‌شود.
+    this.booksChangedSub = this.socketService.onBooksChanged().subscribe(() => {
+      console.log('Books changed from socket');
+      this.loadBooks();
+    });
+  }
+
+  // اگر Home در تب جدا باز باشد، با فوکوس شدن تب دوباره اطلاعات را می‌گیرد.
   @HostListener('window:focus')
   onFocus() {
     this.loadBooks();
   }
-  ngOnInit() {
-    this.loadBooks();
 
-    // ✅ هر بار مسیر عوض شد دوباره داده بگیر
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.loadBooks();
-      });
-
-  }
   hasDiscount(book: any): boolean {
-    return book.discount && Number(book.discount) > 0;
+    return Number(book.discount) > 0;
   }
+
   getDiscountedPrice(book: any): number {
     const price = Number(book.price) || 0;
     const discount = Number(book.discount) || 0;
 
-    return price - (price * discount / 100);
+    return Math.round(price - (price * discount / 100));
   }
 
-  // ✅ گرفتن کتاب‌ها از بک‌اند
   loadBooks() {
-    this.bookService.getBooks().subscribe((data: any[]) => {
+    this.bookService.getBooks().subscribe({
+      next: (data: any[]) => {
+        this.books = data.filter(book => book.isActive);
 
-      // فقط کتاب‌های فعال
-      this.books = data.filter(b => b.isActive);
+        this.bestSellers = this.books.filter(book => book.isBestSeller);
 
-      // پرفروش‌ها
-      this.bestSellers = this.books.filter(b => b.isBestSeller);
-
-      // جدیدترین‌ها
-      this.newArrivals = this.books.filter(b => b.isNewArrival);
-
+        this.newArrivals = this.books.filter(book => book.isNewArrival);
+      },
+      error: (error) => {
+        console.error('Error loading books:', error);
+      }
     });
   }
 
-  // ✅ اضافه کردن به سبد خرید
   addToCart(book: any) {
-
     const recipeData = {
-      name: book.name,      // چون تو backend اسمش name هست
-      price: book.price,
+      name: book.name,
+      price: this.hasDiscount(book) ? this.getDiscountedPrice(book) : Number(book.price),
       imagePath: book.image || '',
       description: book.description || ''
     };
 
-    const bookId = book.id;
+    const bookId = book._id || book.id;
 
     this.cartService.addToCart(recipeData as any, bookId);
 
-    alert(book.name + " به سبد خرید اضافه شد!");
+    alert(book.name + ' به سبد خرید اضافه شد!');
   }
 
+  ngOnDestroy() {
+    this.booksChangedSub?.unsubscribe();
+    this.booksUpdatedSub?.unsubscribe();
+  }
 }
