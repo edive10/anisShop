@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CartService } from '../cart/cart.service';
 import { BookService } from '../book.service';
 import { SocketService } from '../services/socketService';
@@ -21,25 +21,27 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private bookService: BookService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private zone: NgZone,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.loadBooks();
 
-    // اگر در همان تب از Admin به Home برگردی، این هم کمک می‌کند.
     this.booksUpdatedSub = this.bookService.booksUpdated$.subscribe(() => {
       this.loadBooks();
     });
 
-    // وقتی بک‌اند با Socket.io اعلام کند کتاب‌ها تغییر کرده‌اند، Home آپدیت می‌شود.
     this.booksChangedSub = this.socketService.onBooksChanged().subscribe(() => {
       console.log('Books changed from socket');
-      this.loadBooks();
+
+      this.zone.run(() => {
+        this.loadBooks();
+      });
     });
   }
 
-  // اگر Home در تب جدا باز باشد، با فوکوس شدن تب دوباره اطلاعات را می‌گیرد.
   @HostListener('window:focus')
   onFocus() {
     this.loadBooks();
@@ -59,11 +61,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   loadBooks() {
     this.bookService.getBooks().subscribe({
       next: (data: any[]) => {
-        this.books = data.filter(book => book.isActive);
+        console.log('BOOKS LOADED:', data);
 
-        this.bestSellers = this.books.filter(book => book.isBestSeller);
+        this.books = data.filter(book => book.isActive === true || book.isActive === 'true');
 
-        this.newArrivals = this.books.filter(book => book.isNewArrival);
+        this.bestSellers = this.books.filter(book => book.isBestSeller === true || book.isBestSeller === 'true');
+
+        this.newArrivals = this.books.filter(book => book.isNewArrival === true || book.isNewArrival === 'true');
+
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading books:', error);

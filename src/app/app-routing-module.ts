@@ -9,26 +9,38 @@ import { RecipeEdit } from "./recipes/recipe-edit/recipe-edit";
 import { Cart } from "./cart/cart";
 import { HomeComponent } from "./home/home.component";
 import { AddBook } from './add-book/add-book';
-import { AdminDashboard } from "./admin/admin-dashboard/admin-dashboard";
-import { EditBook } from "./admin/edit-book/edit-book";
+import { authGuard } from './guards/auth-guard';
+import { Login } from './admin/login/login';
 
 const appRoutes: Routes = [
+
   { path: '', component: HomeComponent },
-  //{ path: '', redirectTo: '/recipes', pathMatch: 'full' },
+
   { path: 'cart', component: Cart },
+
   { path: 'add-book', component: AddBook },
-  { path: 'admin', component: AdminDashboard },
-  { path: 'admin/edit/:id', component: EditBook },
+
+  { path: 'login', component: Login },
+
   {
-    path: 'recipes', component: Recipes, children: [
+    path: 'admin',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('./admin/admin-module').then(m => m.AdminModule)
+  },
+
+  {
+    path: 'recipes',
+    component: Recipes,
+    children: [
       { path: '', component: RecipeStart },
       { path: 'new', component: RecipeEdit },
       { path: ':id', component: RecipeDetail },
       { path: ':id/edit', component: RecipeEdit },
     ]
   },
-  { path: 'shopping-list', component: ShoppingList }
 
+  { path: 'shopping-list', component: ShoppingList }
 
 ];
 
@@ -36,6 +48,4 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule {}
