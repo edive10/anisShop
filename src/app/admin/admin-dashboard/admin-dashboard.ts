@@ -1,17 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../../app/book.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: false,
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
+
 export class AdminDashboard implements OnInit {
+
   books: any[] = [];
   newBook = { name: '', author: '', price: 0, discount: 0 };
   selectedFile: File | null = null;
-  constructor(private bookService: BookService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private bookService: BookService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getBooks();
@@ -25,7 +33,10 @@ export class AdminDashboard implements OnInit {
   }
 
 
-
+  logout() {
+    localStorage.removeItem('adminToken');
+    this.router.navigate(['/login']);
+  }
   deleteBook(id: string) {
 
     if (confirm("Are you sure you want to delete this book?")) {

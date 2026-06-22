@@ -1,33 +1,42 @@
-<div class="login-container">
+<div class="login-wrapper">
 
-  <h2>Admin Login</h2>
+  <div class="login-card">
 
-  <form (ngSubmit)="login()">
+    <h2>Admin Panel</h2>
+    <p class="subtitle">Sign in to continue</p>
 
-    <input
-      type="email"
-      placeholder="Email"
-      [(ngModel)]="email"
-      name="email"
-      required
-    >
+    <form (ngSubmit)="login()">
 
-    <input
-      type="password"
-      placeholder="Password"
-      [(ngModel)]="password"
-      name="password"
-      required
-    >
+      <div class="form-group">
+        <input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        >
+      </div>
 
-    <button type="submit">
-      Login
-    </button>
+      <div class="form-group">
+        <input
+          type="password"
+          placeholder="Password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        >
+      </div>
 
-  </form>
+      <button type="submit">
+        Login
+      </button>
 
-  <p *ngIf="error" style="color:red">
-    {{error}}
-  </p>
+    </form>
+
+    <p *ngIf="error" class="error">
+      {{ error }}
+    </p>
+
+  </div>
 
 </div>

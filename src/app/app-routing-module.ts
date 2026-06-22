@@ -9,7 +9,7 @@ import { RecipeEdit } from "./recipes/recipe-edit/recipe-edit";
 import { Cart } from "./cart/cart";
 import { HomeComponent } from "./home/home.component";
 import { AddBook } from './add-book/add-book';
-import { authGuard } from './guards/auth-guard';
+import { AuthGuard } from './guards/auth-guard';
 import { Login } from './admin/login/login';
 
 const appRoutes: Routes = [
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
 
   {
     path: 'admin',
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./admin/admin-module').then(m => m.AdminModule)
   },
@@ -48,4 +48,4 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
