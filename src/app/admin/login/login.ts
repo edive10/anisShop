@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,38 +9,24 @@ import { Router } from '@angular/router';
   styleUrl: './login.css',
 })
 export class Login {
-    email = '';
+  email = '';
   password = '';
   error = '';
 
   constructor(
-    private http: HttpClient,
+    private authService: AuthService,
     private router: Router
   ) { }
 
   login() {
-
-    this.http.post<any>('http://localhost:3000/admin/login', {
-      email: this.email,
-      password: this.password
-    })
-      .subscribe({
-
-        next: (res) => {
-
-          localStorage.setItem('adminToken', res.token);
-
-          this.router.navigate(['/admin']);
-
-        },
-
-        error: () => {
-
-          this.error = 'Invalid email or password';
-
-        }
-
-      });
-
+    this.authService.login(this.email, this.password).subscribe({
+      next: (res) => {
+        localStorage.setItem('adminToken', res.token);
+        this.router.navigate(['/admin']);
+      },
+      error: () => {
+        this.error = 'Invalid email or password';
+      }
+    });
   }
 }

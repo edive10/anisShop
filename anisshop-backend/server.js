@@ -1,31 +1,22 @@
-/* -------------------------------------------
-   Load Environment Variables FIRST
--------------------------------------------- */
 require('dotenv').config();
+
+const Book = require("./models/Books");
+const Review = require("./models/Review");
+const verifyAdminToken = require("./middleware/verifyAdminToken");
+const adminRoutes = require("./routes/admin");
+const reviewRoutes = require("./routes/reviews");
 
 /* -------------------------------------------
    Imports
 -------------------------------------------- */
 const http = require('http');
 const { Server } = require('socket.io');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-
-/* -------------------------------------------
-   Security Variables
--------------------------------------------- */
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-const ADMIN_PASSWORD_HASH = bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10);
-const JWT_SECRET = process.env.JWT_SECRET;
-
-console.log("ADMIN_EMAIL from env:", ADMIN_EMAIL);
-
 /* -------------------------------------------
    App Setup
 -------------------------------------------- */
@@ -56,52 +47,13 @@ io.on("connection", (socket) => {
 -------------------------------------------- */
 app.use(cors());
 app.use(express.json());
-
+app.use("/admin", adminRoutes);
 /* -------------------------------------------
    Static Files
 -------------------------------------------- */
 app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-/* -------------------------------------------
-   Database Schemas
--------------------------------------------- */
-const bookSchema = new mongoose.Schema({
-  name: String,
-  author: String,
-  description: String,
-  price: Number,
-  category: String,
-  stock: Number,
-  pages: Number,
-  language: String,
-  image: String,
-
-  isBestSeller: { type: Boolean, default: false },
-  isNewArrival: { type: Boolean, default: false },
-  isActive: { type: Boolean, default: true },
-
-  discount: {
-    type: Number,
-    default: 0,
-    min: 0,
-    max: 100
-  }
-});
-
-const reviewSchema = new mongoose.Schema({
-  bookId: mongoose.Schema.Types.ObjectId,
-  author: String,
-  text: String,
-  rating: Number,
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-});
-
-const Book = mongoose.model("Book", bookSchema);
-const Review = mongoose.model("Review", reviewSchema);
 
 /* -------------------------------------------
    Multer (File Upload)
@@ -112,55 +64,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
-/* -------------------------------------------
-   Admin Auth Middleware
--------------------------------------------- */
-function verifyAdminToken(req, res, next) {
-
-  const authHeader = req.headers.authorization;
-  if (!authHeader)
-    return res.status(401).json({ message: "No token provided" });
-
-  const token = authHeader.split(" ")[1];
-
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    if (decoded.role !== "admin")
-      return res.status(403).json({ message: "Access denied" });
-
-    next();
-
-  } catch (error) {
-    return res.status(401).json({ message: "Invalid token" });
-  }
-}
-
-/* -------------------------------------------
-   Admin Login Route
--------------------------------------------- */
-app.post('/admin/login', (req, res) => {
-
-  const { email, password } = req.body;
-
-  if (email !== ADMIN_EMAIL)
-    return res.status(401).json({ message: "Invalid email" });
-
-  const isMatch = bcrypt.compareSync(password, ADMIN_PASSWORD_HASH);
-  if (!isMatch)
-    return res.status(401).json({ message: "Invalid password" });
-
-  const token = jwt.sign(
-    { role: "admin" },
-    JWT_SECRET,
-    { expiresIn: "8h" }
-  );
-
-  res.json({
-    message: "Login successful",
-    token
-  });
-});
 
 /* -------------------------------------------
    Books API
@@ -181,25 +84,7 @@ app.get("/books/:id", async (req, res) => {
   res.json(book);
 });
 
-/* -------------------------------------------
-   Reviews
--------------------------------------------- */
-app.get("/books/:id/reviews", async (req, res) => {
-  const reviews = await Review.find({ bookId: req.params.id });
-  res.json(reviews);
-});
-
-app.post("/books/:id/reviews", async (req, res) => {
-  const review = new Review({
-    bookId: req.params.id,
-    author: req.body.author,
-    text: req.body.text,
-    rating: req.body.rating
-  });
-
-  await review.save();
-  res.json(review);
-});
+app.use("/books", reviewRoutes);
 
 /* -------------------------------------------
    Add Book (Protected)
