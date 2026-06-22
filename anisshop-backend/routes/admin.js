@@ -23,8 +23,14 @@ router.post("/login", (req, res) => {
     return res.status(401).json({ message: "Invalid password" });
   }
 
-  const token = jwt.sign({ role: "admin" }, jwtSecret, { expiresIn: "8h" });
-
+  const token = jwt.sign(
+    {
+      email: process.env.ADMIN_EMAIL,
+      isAdmin: true
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: '1d' }
+  );
   res.json({
     message: "Login successful",
     token

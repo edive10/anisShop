@@ -3,6 +3,7 @@ import { CartService } from '../cart/cart.service';
 import { BookService } from '../book.service';
 import { SocketService } from '../services/socketService';
 import { Subscription } from 'rxjs';
+import { ShoppingListService } from '../shopping-list/shopping.list.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
+    private shoppingListService: ShoppingListService,
     private bookService: BookService,
     private socketService: SocketService,
     private zone: NgZone,
@@ -78,18 +80,29 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   addToCart(book: any) {
+    const price = this.hasDiscount(book)
+      ? this.getDiscountedPrice(book)
+      : Number(book.price);
+
+    const bookId = book._id || book.id;
+
     const recipeData = {
-      name: book.name,
-      price: this.hasDiscount(book) ? this.getDiscountedPrice(book) : Number(book.price),
+      name: book.title || book.name,
+      price: price,
       imagePath: book.image || '',
       description: book.description || ''
     };
 
-    const bookId = book._id || book.id;
-
     this.cartService.addToCart(recipeData as any, bookId);
 
-    alert(book.name + ' به سبد خرید اضافه شد!');
+    this.shoppingListService.addItem({
+      bookId: bookId,
+      title: book.title || book.name,
+      price: price,
+      quantity: 1
+    });
+
+    alert((book.title || book.name) + ' به سبد خرید اضافه شد!');
   }
 
   ngOnDestroy() {

@@ -33,7 +33,8 @@
 
   <div class="cart-footer">
     <h4>مبلغ کل: {{ totalPrice | number:'1.0-0' }} تومان</h4>
-    <button class="btn btn-success">ادامه سفارش</button>
-    <button class="btn btn-warning" (click)="clearCart()">خالی کردن سبد</button>
+    <button class="btn btn-success" (click)="goToCheckout()">
+      ادامه سفارش
+    </button> <button class="btn btn-warning" (click)="clearCart()">خالی کردن سبد</button>
   </div>
 </div>

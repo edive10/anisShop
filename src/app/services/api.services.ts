@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,21 +8,21 @@ export class ApiService {
 
   api = "http://localhost:3000";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getBooks(){
+  getBooks() {
     return this.http.get(this.api + "/books");
   }
 
-  getBook(id:number){
+  getBook(id: number) {
     return this.http.get(this.api + "/books/" + id);
   }
 
-  getReviews(bookId:number){
+  getReviews(bookId: number) {
     return this.http.get(this.api + "/books/" + bookId + "/reviews");
   }
 
-  addReview(bookId:number, review:any){
+  addReview(bookId: number, review: any) {
     return this.http.post(this.api + "/books/" + bookId + "/reviews", review);
   }
 

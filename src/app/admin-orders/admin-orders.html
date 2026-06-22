@@ -1,0 +1,71 @@
+<div class="admin-orders">
+  <h2>Orders</h2>
+  <p *ngIf="loading">Loading...</p>
+
+  <p *ngIf="!loading && errorMessage">
+    {{ errorMessage }}
+  </p>
+
+  <div *ngIf="!loading && !errorMessage">
+    <h2>Orders</h2>
+
+    <p *ngIf="orders.length === 0">No orders found.</p>
+
+    <div *ngFor="let order of orders">
+      <h3>{{ order.customerName }}</h3>
+      <p>Email: {{ order.email }}</p>
+      <p>Address: {{ order.address }}</p>
+      <p>Total: {{ order.totalPrice }}</p>
+      <p>Status: {{ order.status }}</p>
+
+      <ul>
+        <li *ngFor="let item of order.items">
+          {{ item.title }} - {{ item.quantity }} x {{ item.price }}
+        </li>
+      </ul>
+
+      <hr>
+    </div>
+  </div>
+
+  <div *ngIf="loading">Loading...</div>
+
+  <table *ngIf="!loading && orders.length > 0" border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Items</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.customerName }}</td>
+        <td>{{ order.email }}</td>
+        <td>{{ order.address }}</td>
+        <td>{{ order.totalPrice }}</td>
+        <td>
+          <select [value]="order.status" (change)="changeStatus(order._id!, $event)">
+            <option *ngFor="let status of statuses" [value]="status">
+              {{ status }}
+            </option>
+          </select>
+        </td>
+        <td>{{ order.createdAt | date:'short' }}</td>
+        <td>
+          <div *ngFor="let item of order.items">
+            {{ item.title }} ({{ item.quantity }})
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && orders.length === 0">
+    No orders found.
+  </div>
+</div>

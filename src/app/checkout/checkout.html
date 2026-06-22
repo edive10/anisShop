@@ -1,0 +1,45 @@
+<div class="checkout-container">
+  <h2>Checkout</h2>
+
+  <form (ngSubmit)="placeOrder()">
+    <input
+      type="text"
+      [(ngModel)]="customerName"
+      name="customerName"
+      placeholder="Full Name"
+      required
+    />
+
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      placeholder="Email"
+      required
+    />
+
+    <input
+      type="text"
+      [(ngModel)]="phone"
+      name="phone"
+      placeholder="Phone"
+    />
+
+    <textarea
+      [(ngModel)]="address"
+      name="address"
+      placeholder="Address"
+      required
+    ></textarea>
+
+    <h3>Order Summary</h3>
+
+    <div *ngFor="let item of cartItems">
+      {{ item.title }} - {{ item.quantity }} × {{ item.price }}
+    </div>
+
+    <p><strong>Total:</strong> {{ totalPrice }}</p>
+
+    <button type="submit">Place Order</button>
+  </form>
+</div>

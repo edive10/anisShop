@@ -21,6 +21,8 @@ export class Login {
   login() {
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
+        console.log('LOGIN RESPONSE', res);
+        
         localStorage.setItem('adminToken', res.token);
         this.router.navigate(['/admin']);
       },

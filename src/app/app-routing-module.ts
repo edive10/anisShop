@@ -11,12 +11,18 @@ import { HomeComponent } from "./home/home.component";
 import { AddBook } from './add-book/add-book';
 import { AuthGuard } from './guards/auth-guard';
 import { Login } from './admin/login/login';
+import { Checkout } from "./checkout/checkout";
+import { AdminOrders } from "./admin-orders/admin-orders";
 
 const appRoutes: Routes = [
 
   { path: '', component: HomeComponent },
 
   { path: 'cart', component: Cart },
+  { path: 'checkout', component: Checkout },
+  { path: 'admin/orders', component: AdminOrders },
+  { path: 'checkout', component: Checkout },
+  { path: 'admin/orders', component: AdminOrders, canActivate: [AuthGuard] },
 
   { path: 'add-book', component: AddBook },
 

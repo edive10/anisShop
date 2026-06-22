@@ -27,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { EditBook } from './admin/edit-book/edit-book';
 import { Login } from './admin/login/login';
+import { Checkout } from './checkout/checkout';
+import { AdminOrders } from './admin-orders/admin-orders';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { Login } from './admin/login/login';
     AdminDashboard,
     EditBook,
     Login,
+    Checkout,
+    AdminOrders,
   ],
   imports: [
     BrowserModule,

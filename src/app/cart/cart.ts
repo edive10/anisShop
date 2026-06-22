@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartItem } from './cart-item.model';
 import { CartService } from './cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +19,9 @@ export class Cart implements OnInit {
   @Input() isOpen = false;
   @Output() close = new EventEmitter<void>();
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private router: Router) { }
 
   ngOnInit() {
 
@@ -48,7 +51,10 @@ export class Cart implements OnInit {
   clearCart() {
     this.cartService.clearCart();
   }
-
+  goToCheckout() {
+    this.closeCart();
+    this.router.navigate(['/checkout']);
+  }
   ngOnDestroy() {
     if (this.cartSub) this.cartSub.unsubscribe();
   }

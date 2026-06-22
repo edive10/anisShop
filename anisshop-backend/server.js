@@ -5,7 +5,7 @@ const Review = require("./models/Review");
 const verifyAdminToken = require("./middleware/verifyAdminToken");
 const adminRoutes = require("./routes/admin");
 const reviewRoutes = require("./routes/reviews");
-
+const orderRoutes = require("./routes/orders");
 /* -------------------------------------------
    Imports
 -------------------------------------------- */
@@ -48,6 +48,7 @@ io.on("connection", (socket) => {
 app.use(cors());
 app.use(express.json());
 app.use("/admin", adminRoutes);
+app.use("/orders", orderRoutes);
 /* -------------------------------------------
    Static Files
 -------------------------------------------- */
