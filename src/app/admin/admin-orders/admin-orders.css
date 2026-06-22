@@ -1,0 +1,91 @@
+.admin-orders {
+  padding: 24px;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.order-card h3 {
+  margin-top: 0;
+}
+
+select {
+  padding: 6px;
+  margin: 8px 0 16px;
+}
+
+.error {
+  color: red;
+}
+.admin-orders {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Tahoma, sans-serif;
+  direction: rtl;
+}
+
+.order-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.order-details p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.status-management {
+  margin-top: 15px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.status-select {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* استایل برای آیتم‌ها */
+.items-list {
+  list-style: none;
+  padding: 0;
+}
+
+.items-list li {
+  background: #fff;
+  border-right: 3px solid #007bff;
+  padding: 8px 15px;
+  margin-bottom: 5px;
+  font-size: 0.95em;
+}
+
+.badge {
+  background: #eee;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.85em;
+}
+
+.error { color: red; font-weight: bold; }

@@ -15,23 +15,10 @@ export class OrderService {
     return this.http.post(this.apiUrl, order);
   }
 
-  getOrders() {
-    const token = localStorage.getItem('adminToken');
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
-    return this.http.get<any[]>(this.apiUrl, { headers });
+  getOrders(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
-
   updateOrderStatus(orderId: string, status: string): Observable<any> {
-    const token = localStorage.getItem('adminToken');
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
-    return this.http.patch(`${this.apiUrl}/${orderId}/status`, { status }, { headers });
+    return this.http.patch(`${this.apiUrl}/${orderId}/status`, { status });
   }
 }

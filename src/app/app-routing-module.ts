@@ -12,7 +12,7 @@ import { AddBook } from './add-book/add-book';
 import { AuthGuard } from './guards/auth-guard';
 import { Login } from './admin/login/login';
 import { Checkout } from "./checkout/checkout";
-import { AdminOrders } from "./admin-orders/admin-orders";
+import { AdminOrders } from "./admin/admin-orders/admin-orders";
 
 const appRoutes: Routes = [
 
