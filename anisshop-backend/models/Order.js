@@ -20,9 +20,8 @@ const orderSchema = new mongoose.Schema({
   items: [
     {
       bookId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Book",
-        required: true,
+        type: String,
+        required: true
       },
       title: {
         type: String,

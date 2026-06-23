@@ -94,6 +94,7 @@ export class CartService {
 
   clearCart() {
     this.items = [];
+    this.updateCart();
     this.cartChanged.next(this.getItems());
   }
 
