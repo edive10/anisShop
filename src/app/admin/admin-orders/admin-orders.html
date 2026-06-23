@@ -26,13 +26,11 @@
       <p><strong>ایمیل:</strong> {{ order.email }}</p>
       <p><strong>آدرس:</strong> {{ order.address }}</p>
       <p><strong>مبلغ کل:</strong> {{ order.totalPrice | number }} تومان</p>
-      
+
       <!-- بخش مدیریت وضعیت -->
       <div class="status-management">
         <label><strong>وضعیت سفارش:</strong></label>
-        <select 
-          (change)="changeStatus(order._id, $any($event.target).value)" 
-          class="status-select"
+        <select (change)="changeStatus(order._id, $any($event.target).value)" class="status-select"
           [ngClass]="'status-' + order.status">
           <option *ngFor="let s of statuses" [value]="s" [selected]="s === order.status">
             {{ s }}

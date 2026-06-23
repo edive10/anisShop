@@ -28,20 +28,24 @@ export class SocketService {
 
   }
 
+  // برای تغییرات کتاب‌ها (اگر هنوز استفاده می‌کنی)
   onBooksChanged(): Observable<any> {
-
     return new Observable(observer => {
-
       this.socket.on('booksChanged', (data) => {
-
         console.log('📡 booksChanged received', data);
-
         observer.next(data);
-
       });
-
     });
+  }
 
+  // ✅ برای سفارش جدید
+  onNewOrder(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('new-order', (data) => {
+        console.log('📦 new order received', data);
+        observer.next(data);
+      });
+    });
   }
 
 }

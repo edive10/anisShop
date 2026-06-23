@@ -2,36 +2,21 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
 const verifyAdminToken = require("../middleware/verifyAdminToken");
-
+const { io } = require('../server');
 // ثبت سفارش توسط کاربر
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const { customerName, email, address, phone, items, totalPrice } = req.body;
 
-    if (!customerName || !email || !address || !items || !items.length || !totalPrice) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
-
-    const order = new Order({
-      customerName,
-      email,
-      address,
-      phone,
-      items,
-      totalPrice,
-    });
-
+    const order = new Order(req.body);
     await order.save();
 
-    res.status(201).json({
-      message: "Order created successfully",
-      order,
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Error creating order",
-      error: error.message,
-    });
+    // ارسال event به پنل ادمین
+    io.emit('new-order', order);
+
+    res.status(201).json(order);
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 

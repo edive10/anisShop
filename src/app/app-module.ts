@@ -28,7 +28,8 @@ import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { EditBook } from './admin/edit-book/edit-book';
 import { Login } from './admin/login/login';
 import { Checkout } from './checkout/checkout';
-import { AdminOrders } from './admin-orders/admin-orders';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -52,12 +53,13 @@ import { AdminOrders } from './admin-orders/admin-orders';
     EditBook,
     Login,
     Checkout,
-    AdminOrders,
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
