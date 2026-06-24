@@ -1,9 +1,10 @@
-.book-card{
-  border:1px solid #ddd;
-  padding:15px;
-  margin:10px;
-  width:250px;
+.book-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px;
+  width: 250px;
 }
+
 .admin-header {
   display: flex;
   justify-content: space-between;
@@ -24,4 +25,114 @@
 
 .logout-btn:hover {
   background: #bb2d3b;
+}
+
+.admin-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  background: #f3f4f6;
+}
+
+.admin-sidebar {
+  background: #111827;
+  color: #fff;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-brand h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-menu button {
+  border: 0;
+  background: transparent;
+  color: #d1d5db;
+  text-align: right;
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.admin-menu button:hover {
+  background: #1f2937;
+  color: #fff;
+}
+
+.admin-menu button.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.logout-btn {
+  margin-top: auto;
+  border: 0;
+  background: #dc2626;
+  color: #fff;
+  padding: 11px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.admin-content {
+  padding: 24px;
+  overflow-x: auto;
+}
+
+.admin-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.book-count {
+  background: #2563eb;
+  color: #fff;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+@media (max-width: 800px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    min-height: auto;
+  }
+
+  .admin-content {
+    padding: 16px;
+  }
+
+  .section-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

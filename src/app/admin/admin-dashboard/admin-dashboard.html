@@ -1,17 +1,147 @@
-<div class="admin-header">
-  <h2>Admin Panel</h2>
-  <a routerLink="/admin/orders">مدیریت سفارش‌ها</a>
-  <button type="button" class="logout-btn" (click)="logout()">
-    Logout
-  </button>
-</div>
-<div class="container mt-4" dir="rtl">
+<div class="admin-layout" dir="rtl">
 
-  <!-- فرم افزودن کتاب جدید -->
-  <div class="card mb-5 shadow-sm">
-    <div class="card-header bg-dark text-white">افزودن کتاب جدید</div>
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <h2>پنل مدیریت</h2>
+    </div>
 
-    <div class="card-body">
+    <nav class="admin-menu">
+      <button type="button" [class.active]="activeSection === 'orders'" (click)="setSection('orders')">
+        سفارش‌ها
+      </button>
+
+      <button type="button" [class.active]="activeSection === 'books'" (click)="setSection('books')">
+        مدیریت کتاب‌ها
+      </button>
+
+      <button type="button" [class.active]="activeSection === 'add-book'" (click)="setSection('add-book')">
+        افزودن کتاب
+      </button>
+
+    </nav>
+
+    <button type="button" class="logout-btn" (click)="logout()">
+      خروج
+    </button>
+  </aside>
+
+  <main class="admin-content">
+
+    <!-- سفارش‌ها -->
+    <section *ngIf="activeSection === 'orders'">
+      <app-admin-orders *ngIf="activeSection === 'orders'"></app-admin-orders>
+    </section>
+
+    <!-- مدیریت کتاب‌ها -->
+    <section *ngIf="activeSection === 'books'" class="admin-section">
+
+      <div class="section-header">
+        <h2>مدیریت کتاب‌ها</h2>
+        <span class="book-count">تعداد کتاب‌ها: {{ books.length }}</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover border text-center align-middle">
+
+          <thead class="table-light">
+            <tr>
+              <th>تصویر</th>
+              <th>نام کتاب</th>
+              <th>نویسنده</th>
+              <th>قیمت</th>
+              <th>تخفیف</th>
+              <th>دسته‌بندی</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let book of books">
+
+              <td>
+                <img [src]="'http://localhost:3000/uploads/' + book.image" class="img-thumbnail"
+                  style="width: 50px; height: 70px; object-fit: cover;">
+              </td>
+
+              <td>{{ book.name }}</td>
+
+              <td>{{ book.author }}</td>
+
+              <td>{{ book.price | number }} تومان</td>
+
+              <td>
+                <div class="d-flex align-items-center justify-content-center gap-1">
+                  <input type="number" min="0" max="100" [(ngModel)]="book.discount" name="discount-{{ book._id }}"
+                    class="form-control form-control-sm text-center" style="width: 70px;" (change)="updateBook(book)">
+                  <span>%</span>
+                </div>
+
+                <small *ngIf="book.discount > 0" class="text-success d-block mt-1">
+                  قیمت با تخفیف:
+                  {{
+                  book.price - (book.price * book.discount / 100) | number
+                  }}
+                  تومان
+                </small>
+              </td>
+
+              <td class="text-end">
+
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="book.isNewArrival"
+                    name="new-{{ book._id }}" (change)="updateBook(book)">
+                  <label class="form-check-label">
+                    جدیدترین‌ها
+                  </label>
+                </div>
+
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="book.isBestSeller"
+                    name="best-{{ book._id }}" (change)="updateBook(book)">
+                  <label class="form-check-label">
+                    پرفروش‌ترین‌ها
+                  </label>
+                </div>
+
+              </td>
+
+              <td>
+                <button type="button" class="btn btn-sm" [ngClass]="book.isActive ? 'btn-success' : 'btn-secondary'"
+                  (click)="toggleActive(book)">
+                  {{ book.isActive ? 'فعال' : 'غیرفعال' }}
+                </button>
+              </td>
+
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteBook(book._id)">
+                  حذف
+                </button>
+              </td>
+
+            </tr>
+
+            <tr *ngIf="books.length === 0">
+              <td colspan="8" class="text-center py-4">
+                هیچ کتابی یافت نشد. ابتدا یک کتاب اضافه کنید.
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+      </div>
+
+    </section>
+
+    <!-- افزودن کتاب -->
+    <section *ngIf="activeSection === 'add-book'" class="admin-section">
+
+      <div class="section-header">
+        <h2>افزودن کتاب جدید</h2>
+      </div>
+
       <form (submit)="addBook()" class="row g-3">
 
         <div class="col-md-3">
@@ -25,8 +155,13 @@
         </div>
 
         <div class="col-md-2">
-          <input type="number" [(ngModel)]="newBook.price" name="price" class="form-control" placeholder="قیمت (تومان)"
+          <input type="number" [(ngModel)]="newBook.price" name="price" class="form-control" placeholder="قیمت"
             required>
+        </div>
+
+        <div class="col-md-2">
+          <input type="number" [(ngModel)]="newBook.discount" name="discount" class="form-control" placeholder="تخفیف"
+            min="0" max="100">
         </div>
 
         <div class="col-md-2">
@@ -35,121 +170,3 @@
 
         <div class="col-md-2">
           <button type="submit" class="btn btn-success w-100">
-            ذخیره کتاب
-          </button>
-        </div>
-
-      </form>
-    </div>
-  </div>
-
-
-  <!-- مدیریت کتاب‌ها -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>مدیریت کتاب‌ها</h2>
-    <span class="badge bg-primary">تعداد کتاب‌ها: {{ books.length }}</span>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table table-hover border text-center align-middle">
-
-      <thead class="table-light">
-        <tr>
-          <th>تصویر</th>
-          <th>نام کتاب</th>
-          <th>نویسنده</th>
-          <th>قیمت</th>
-          <th>تخفیف</th>
-          <th>دسته‌بندی</th>
-          <th>وضعیت</th>
-          <th>عملیات</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-        <tr *ngFor="let book of books">
-
-          <!-- تصویر کتاب -->
-          <td>
-            <img [src]="'http://localhost:3000/uploads/' + book.image" class="img-thumbnail"
-              style="width: 50px; height: 70px; object-fit: cover;">
-          </td>
-
-          <!-- نام کتاب -->
-          <td>{{ book.name }}</td>
-
-          <!-- نویسنده -->
-          <td>{{ book.author }}</td>
-
-          <!-- قیمت -->
-          <td>{{ book.price | number }} تومان</td>
-
-          <!-- تخفیف -->
-          <td>
-            <div class="d-flex align-items-center justify-content-center gap-1">
-              <input type="number" min="0" max="100" [(ngModel)]="book.discount" name="discount-{{ book._id }}"
-                class="form-control form-control-sm text-center" style="width: 70px;" (change)="updateBook(book)">
-              <span>%</span>
-            </div>
-
-            <small *ngIf="book.discount > 0" class="text-success d-block mt-1">
-              قیمت با تخفیف:
-              {{
-              book.price - (book.price * book.discount / 100) | number
-              }}
-              تومان
-            </small>
-          </td>
-
-          <!-- دسته‌بندی جدیدترین / پرفروش‌ترین -->
-          <td class="text-end">
-
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="book.isNewArrival" name="new-{{ book._id }}"
-                (change)="updateBook(book)">
-              <label class="form-check-label">
-                جدیدترین‌ها
-              </label>
-            </div>
-
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="book.isBestSeller" name="best-{{ book._id }}"
-                (change)="updateBook(book)">
-              <label class="form-check-label">
-                پرفروش‌ترین‌ها
-              </label>
-            </div>
-
-          </td>
-
-          <!-- فعال / غیرفعال -->
-          <td>
-            <button type="button" class="btn btn-sm" [ngClass]="book.isActive ? 'btn-success' : 'btn-secondary'"
-              (click)="toggleActive(book)">
-              {{ book.isActive ? 'فعال' : 'غیرفعال' }}
-            </button>
-          </td>
-
-          <!-- عملیات -->
-          <td>
-            <button class="btn btn-danger btn-sm" (click)="deleteBook(book._id)">
-              حذف
-            </button>
-          </td>
-
-        </tr>
-
-        <!-- اگر کتابی نبود -->
-        <tr *ngIf="books.length === 0">
-          <td colspan="8" class="text-center py-4">
-            هیچ کتابی یافت نشد. ابتدا یک کتاب اضافه کنید.
-          </td>
-        </tr>
-
-      </tbody>
-
-    </table>
-  </div>
-
-</div>

@@ -24,7 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { AddBook } from './add-book/add-book';
 import { HttpClientModule } from '@angular/common/http';
-import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { EditBook } from './admin/edit-book/edit-book';
 import { Login } from './admin/login/login';
 import { Checkout } from './checkout/checkout';
@@ -49,7 +48,6 @@ import { RouterModule } from '@angular/router';
     HomeComponent,
     FilterPipe,
     AddBook,
-    AdminDashboard,
     EditBook,
     Login,
     Checkout,
