@@ -10,13 +10,7 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-
-    this.socket = io('http://localhost:3000', {
-      transports: ['websocket'],
-      reconnection: true,
-      reconnectionAttempts: 10,
-      reconnectionDelay: 1000
-    });
+    this.socket = io('http://localhost:3000');
 
     this.socket.on('connect', () => {
       console.log('✅ Socket connected:', this.socket.id);
@@ -25,26 +19,37 @@ export class SocketService {
     this.socket.on('disconnect', () => {
       console.log('❌ Socket disconnected');
     });
-
   }
 
   // برای تغییرات کتاب‌ها (اگر هنوز استفاده می‌کنی)
   onBooksChanged(): Observable<any> {
     return new Observable(observer => {
-      this.socket.on('booksChanged', (data) => {
+      const handler = (data: any) => {
         console.log('📡 booksChanged received', data);
         observer.next(data);
-      });
+      };
+
+      this.socket.on('booksChanged', handler);
+
+      return () => {
+        this.socket.off('booksChanged', handler);
+      };
     });
   }
 
   // ✅ برای سفارش جدید
   onNewOrder(): Observable<any> {
     return new Observable(observer => {
-      this.socket.on('new-order', (data) => {
+      const handler = (data: any) => {
         console.log('📦 new order received', data);
         observer.next(data);
-      });
+      };
+
+      this.socket.on('new-order', handler);
+
+      return () => {
+        this.socket.off('new-order', handler);
+      };
     });
   }
 

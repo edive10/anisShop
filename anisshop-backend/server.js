@@ -45,7 +45,11 @@ io.on("connection", (socket) => {
 /* -------------------------------------------
    Middlewares
 -------------------------------------------- */
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:4200",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+})); 
 app.use(express.json());
 app.use("/admin", adminRoutes);
 app.use("/orders", orderRoutes);

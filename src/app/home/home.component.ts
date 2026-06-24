@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CartService } from '../cart/cart.service';
 import { BookService } from '../book.service';
-import { SocketService } from '../services/socketService';
+import { SocketService } from '../services/socket.service';
 import { Subscription } from 'rxjs';
 import { ShoppingListService } from '../shopping-list/shopping.list.service';
 
