@@ -14,7 +14,9 @@ export class AdminOrders implements OnInit, OnDestroy {
   loading = false;
   errorMessage = '';
   selectedStatus = 'all';
-
+  searchTerm = '';
+  selectedOrder: any = null;
+  selectedDateFilter = 'all';
   private newOrderSub?: Subscription;
 
   statuses = [
@@ -25,7 +27,12 @@ export class AdminOrders implements OnInit, OnDestroy {
     'delivered',
     'cancelled'
   ];
-
+  dateFilters = [
+    { value: 'all', label: 'همه زمان‌ها' },
+    { value: 'today', label: 'امروز' },
+    { value: 'week', label: 'این هفته' },
+    { value: 'month', label: 'این ماه' }
+  ];
   statusLabels: Record<string, string> = {
     pending: 'در انتظار بررسی',
     paid: 'پرداخت شده',
@@ -59,12 +66,37 @@ export class AdminOrders implements OnInit, OnDestroy {
   }
 
   get filteredOrders(): any[] {
-    if (this.selectedStatus === 'all') {
-      return this.orders;
+    let result = [...this.orders];
+
+    if (this.selectedStatus !== 'all') {
+      result = result.filter(order => order.status === this.selectedStatus);
     }
 
-    return this.orders.filter(order => order.status === this.selectedStatus);
+    if (this.selectedDateFilter !== 'all') {
+      result = result.filter(order => this.matchesDateFilter(order.createdAt));
+    }
+
+    const term = this.searchTerm.trim().toLowerCase();
+
+    if (term) {
+      result = result.filter(order => {
+        const orderCode = order._id?.toLowerCase() || '';
+        const shortCode = order._id?.slice(-6).toLowerCase() || '';
+        const customerName = (order.user?.name || order.customerName || '').toLowerCase();
+        const phone = String(order.user?.phone || order.phone || '').toLowerCase();
+
+        return (
+          orderCode.includes(term) ||
+          shortCode.includes(term) ||
+          customerName.includes(term) ||
+          phone.includes(term)
+        );
+      });
+    }
+
+    return result;
   }
+
 
   get totalOrders(): number {
     return this.orders.length;
@@ -110,6 +142,58 @@ export class AdminOrders implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       }
     });
+  }
+  matchesDateFilter(date: string): boolean {
+    if (!date) {
+      return false;
+    }
+
+    const orderDate = new Date(date);
+    const now = new Date();
+
+    if (this.selectedDateFilter === 'today') {
+      return orderDate.toDateString() === now.toDateString();
+    }
+
+    if (this.selectedDateFilter === 'week') {
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(now.getDate() - 7);
+
+      return orderDate >= sevenDaysAgo && orderDate <= now;
+    }
+
+    if (this.selectedDateFilter === 'month') {
+      return (
+        orderDate.getFullYear() === now.getFullYear() &&
+        orderDate.getMonth() === now.getMonth()
+      );
+    }
+
+    return true;
+  }
+
+  openOrderDetails(order: any): void {
+    this.selectedOrder = order;
+  }
+
+  closeOrderDetails(): void {
+    this.selectedOrder = null;
+  }
+
+  getOrderItems(order: any): any[] {
+    return order.items || order.books || [];
+  }
+
+  getItemTitle(item: any): string {
+    return item.title || item.name || item.book?.title || 'بدون عنوان';
+  }
+
+  getItemQuantity(item: any): number {
+    return item.quantity || item.count || 1;
+  }
+
+  getItemPrice(item: any): number {
+    return item.price || item.book?.price || 0;
   }
 
   changeStatus(orderId: string, status: string): void {

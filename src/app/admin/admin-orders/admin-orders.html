@@ -44,10 +44,27 @@
       </select>
     </div>
 
+    <div class="filter-group">
+      <label for="dateFilter">بازه زمانی</label>
+
+      <select id="dateFilter" [(ngModel)]="selectedDateFilter">
+        <option *ngFor="let filter of dateFilters" [value]="filter.value">
+          {{ filter.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="search-group">
+      <label for="orderSearch">جستجو</label>
+
+      <input id="orderSearch" type="text" [(ngModel)]="searchTerm" placeholder="نام، موبایل یا کد سفارش" />
+    </div>
+
     <div class="orders-count">
       {{ filteredOrders.length }} سفارش
     </div>
   </div>
+
 
   <div *ngIf="errorMessage" class="error-box">
     {{ errorMessage }}
@@ -71,6 +88,7 @@
           <th>مبلغ</th>
           <th>وضعیت</th>
           <th>تغییر وضعیت</th>
+          <th>جزئیات</th>
         </tr>
       </thead>
 
@@ -94,7 +112,12 @@
                 {{ order.user?.phone || order.phone }}
               </span>
             </div>
+          <td>
+            <button type="button" class="details-btn" (click)="openOrderDetails(order)">
+              مشاهده
+            </button>
           </td>
+
 
           <td class="price-cell">
             {{ formatPrice(order.totalPrice || order.totalAmount || order.total) }}
@@ -108,11 +131,8 @@
           </td>
 
           <td>
-            <select
-              class="status-select"
-              [value]="order.status"
-              (change)="changeStatus(order._id, $any($event.target).value)"
-            >
+            <select class="status-select" [value]="order.status"
+              (change)="changeStatus(order._id, $any($event.target).value)">
               <option *ngFor="let status of statuses" [value]="status">
                 {{ getStatusLabel(status) }}
               </option>
@@ -122,4 +142,73 @@
       </tbody>
     </table>
   </div>
+  <div class="modal-backdrop" *ngIf="selectedOrder" (click)="closeOrderDetails()">
+    <div class="order-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h2>جزئیات سفارش</h2>
+          <p>#{{ selectedOrder._id?.slice(-6) || '-' }}</p>
+        </div>
+
+        <button type="button" class="close-btn" (click)="closeOrderDetails()">
+          ×
+        </button>
+      </div>
+
+      <div class="modal-grid">
+        <div>
+          <span>مشتری</span>
+          <strong>{{ selectedOrder.user?.name || selectedOrder.customerName || 'بدون نام' }}</strong>
+        </div>
+
+        <div>
+          <span>شماره تماس</span>
+          <strong>{{ selectedOrder.user?.phone || selectedOrder.phone || '-' }}</strong>
+        </div>
+
+        <div>
+          <span>تاریخ ثبت</span>
+          <strong>{{ formatDate(selectedOrder.createdAt) }}</strong>
+        </div>
+
+        <div>
+          <span>وضعیت</span>
+          <strong>{{ getStatusLabel(selectedOrder.status) }}</strong>
+        </div>
+
+        <div>
+          <span>مبلغ کل</span>
+          <strong>
+            {{ formatPrice(selectedOrder.totalPrice || selectedOrder.totalAmount || selectedOrder.total) }}
+            تومان
+          </strong>
+        </div>
+
+        <div *ngIf="selectedOrder.address">
+          <span>آدرس</span>
+          <strong>{{ selectedOrder.address }}</strong>
+        </div>
+      </div>
+
+      <div class="items-section">
+        <h3>محصولات سفارش</h3>
+
+        <div *ngIf="getOrderItems(selectedOrder).length === 0" class="empty-items">
+          محصولی برای این سفارش ثبت نشده است.
+        </div>
+
+        <div class="order-item" *ngFor="let item of getOrderItems(selectedOrder)">
+          <div>
+            <strong>{{ getItemTitle(item) }}</strong>
+            <span>تعداد: {{ getItemQuantity(item) }}</span>
+          </div>
+
+          <div>
+            {{ formatPrice(getItemPrice(item)) }} تومان
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
