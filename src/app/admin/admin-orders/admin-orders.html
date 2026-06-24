@@ -1,49 +1,125 @@
-<div class="admin-orders">
-  <h2>مدیریت سفارش‌ها</h2>
-
-  <!-- پیام بارگذاری -->
-  <p *ngIf="loading" class="loading-text">در حال دریافت سفارش‌ها...</p>
-
-  <!-- پیام خطا -->
-  <p *ngIf="errorMessage" class="error">
-    {{ errorMessage }}
-  </p>
-
-  <!-- اگر سفارش خالی بود -->
-  <p *ngIf="!loading && orders.length === 0" class="empty-text">
-    هنوز سفارشی ثبت نشده است.
-  </p>
-
-  <!-- لیست سفارش‌ها -->
-  <div *ngFor="let order of orders" class="order-card">
-    <div class="order-header">
-      <h3>سفارش کد: {{ order._id | slice:-6 }}</h3>
-      <span class="order-date">{{ order.createdAt | date:'short' }}</span>
+<section class="admin-orders-page" dir="rtl">
+  <div class="orders-header">
+    <div>
+      <h1>مدیریت سفارش‌ها</h1>
+      <p>بررسی سفارش‌های ثبت‌شده و تغییر وضعیت آن‌ها</p>
     </div>
 
-    <div class="order-details">
-      <p><strong>نام مشتری:</strong> {{ order.customerName }}</p>
-      <p><strong>ایمیل:</strong> {{ order.email }}</p>
-      <p><strong>آدرس:</strong> {{ order.address }}</p>
-      <p><strong>مبلغ کل:</strong> {{ order.totalPrice | number }} تومان</p>
-
-      <!-- بخش مدیریت وضعیت -->
-      <div class="status-management">
-        <label><strong>وضعیت سفارش:</strong></label>
-        <select (change)="changeStatus(order._id, $any($event.target).value)" class="status-select"
-          [ngClass]="'status-' + order.status">
-          <option *ngFor="let s of statuses" [value]="s" [selected]="s === order.status">
-            {{ s }}
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <h4>آیتم‌های خریداری شده:</h4>
-    <ul class="items-list">
-      <li *ngFor="let item of order.items">
-        {{ item.title }} — <span class="badge">تعداد: {{ item.quantity }}</span> — قیمت: {{ item.price | number }}
-      </li>
-    </ul>
+    <button type="button" class="refresh-btn" (click)="loadOrders()" [disabled]="loading">
+      بروزرسانی
+    </button>
   </div>
-</div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span>کل سفارش‌ها</span>
+      <strong>{{ totalOrders }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>سفارش‌های امروز</span>
+      <strong>{{ todayOrders }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>در انتظار بررسی</span>
+      <strong>{{ pendingOrders }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>پرداخت شده</span>
+      <strong>{{ paidOrders }}</strong>
+    </div>
+  </div>
+
+  <div class="orders-toolbar">
+    <div class="filter-group">
+      <label for="statusFilter">فیلتر وضعیت</label>
+
+      <select id="statusFilter" [(ngModel)]="selectedStatus">
+        <option value="all">همه سفارش‌ها</option>
+        <option *ngFor="let status of statuses" [value]="status">
+          {{ getStatusLabel(status) }}
+        </option>
+      </select>
+    </div>
+
+    <div class="orders-count">
+      {{ filteredOrders.length }} سفارش
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="loading-box">
+    در حال دریافت سفارش‌ها...
+  </div>
+
+  <div *ngIf="!loading && filteredOrders.length === 0" class="empty-box">
+    سفارشی برای نمایش وجود ندارد.
+  </div>
+
+  <div *ngIf="!loading && filteredOrders.length > 0" class="orders-table-wrap">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>کد سفارش</th>
+          <th>تاریخ</th>
+          <th>مشتری</th>
+          <th>مبلغ</th>
+          <th>وضعیت</th>
+          <th>تغییر وضعیت</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let order of filteredOrders; trackBy: trackByOrderId">
+          <td class="order-code">
+            #{{ order._id?.slice(-6) || '-' }}
+          </td>
+
+          <td>
+            {{ formatDate(order.createdAt) }}
+          </td>
+
+          <td>
+            <div class="customer-cell">
+              <strong>
+                {{ order.user?.name || order.customerName || 'بدون نام' }}
+              </strong>
+
+              <span *ngIf="order.user?.phone || order.phone">
+                {{ order.user?.phone || order.phone }}
+              </span>
+            </div>
+          </td>
+
+          <td class="price-cell">
+            {{ formatPrice(order.totalPrice || order.totalAmount || order.total) }}
+            <span>تومان</span>
+          </td>
+
+          <td>
+            <span class="status-badge" [ngClass]="'status-' + order.status">
+              {{ getStatusLabel(order.status) }}
+            </span>
+          </td>
+
+          <td>
+            <select
+              class="status-select"
+              [value]="order.status"
+              (change)="changeStatus(order._id, $any($event.target).value)"
+            >
+              <option *ngFor="let status of statuses" [value]="status">
+                {{ getStatusLabel(status) }}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
