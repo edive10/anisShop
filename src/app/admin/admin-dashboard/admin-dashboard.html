@@ -22,17 +22,15 @@
       خروج
     </button>
   </aside>
-
   <main class="admin-content">
-
-    <div class="admin-message success-message" *ngIf="successMessage">
-      {{ successMessage }}
+    <!-- هدر داخلی ادمین (اختیاری اگر هدر اصلی را در فایل بالا گذاشتید) -->
+    <div class="content-header d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold">{{ activeSection === 'books' ? 'مدیریت کتاب‌ها' : activeSection === 'orders' ? 'لیست سفارشات'
+        : 'افزودن کتاب جدید' }}</h3>
+      <div class="user-info">
+        <span class="badge bg-primary">Admin Mode</span>
+      </div>
     </div>
-
-    <div class="admin-message error-message" *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
-
     <!-- سفارش‌ها -->
     <section *ngIf="activeSection === 'orders'">
       <app-admin-orders></app-admin-orders>
