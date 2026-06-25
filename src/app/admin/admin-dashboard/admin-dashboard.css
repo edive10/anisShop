@@ -78,7 +78,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.08), transparent 80%);
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.08), transparent 80%);
   transform: translateX(-100%);
 }
 
@@ -415,6 +415,7 @@ section .col-12 {
     opacity: 0;
     transform: translateY(14px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -426,6 +427,7 @@ section .col-12 {
     opacity: 0;
     transform: translateX(24px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -437,6 +439,7 @@ section .col-12 {
     opacity: 0;
     transform: translateY(-12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -448,6 +451,7 @@ section .col-12 {
     opacity: 0;
     transform: scale(0.92);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -458,6 +462,7 @@ section .col-12 {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(100%);
   }
@@ -467,6 +472,7 @@ section .col-12 {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -524,4 +530,123 @@ section .col-12 {
   .table tbody td {
     padding: 10px 8px;
   }
+
+  /* بک‌گراند تیره پشت مودال */
+  .modal-backdrop-custom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* مقدار z-index باید از سایدبار (که معمولاً 1000 است) بیشتر باشد */
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+    /* کمی مات کردن پشت مودال برای تمرکز بیشتر */
+  }
+
+  /* خودِ جعبه مودال */
+  .order-details-modal {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    /* اطمینان از اینکه متن‌ها مشکی و خوانا هستند */
+    color: #333;
+    direction: rtl;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* جداکننده بخش‌ها در مودال */
+  .modal-header-custom {
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+
+  /* برای اینکه سایدبار شما مزاحم نشود */
+  .admin-sidebar {
+    z-index: 1000;
+    /* سایدبار لایه پایین‌تر */
+  }
+
+  .admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f8f9fa;
+  }
+
+  .admin-sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: #1f2937;
+    color: #fff;
+    padding: 24px 16px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+  }
+
+  .admin-content {
+    flex: 1;
+    padding: 24px;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .admin-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .orders-section,
+  .orders-wrapper {
+    position: relative;
+    overflow: visible !important;
+  }
+
+  .content-header {
+    background: #fff;
+    padding: 16px 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .delete-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+  }
+
+  .delete-modal {
+    width: 90%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    text-align: right;
+  }
+
+  .delete-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
 }

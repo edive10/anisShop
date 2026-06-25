@@ -1,19 +1,29 @@
 <div class="admin-layout" dir="rtl">
+  <!-- سایدبار -->
   <aside class="admin-sidebar">
     <div class="admin-brand">
       <h2>پنل مدیریت</h2>
     </div>
 
     <nav class="admin-menu">
-      <button type="button" [class.active]="activeSection === 'orders'" (click)="setSection('orders')">
+      <button
+        type="button"
+        [class.active]="activeSection === 'orders'"
+        (click)="setSection('orders')">
         سفارش‌ها
       </button>
 
-      <button type="button" [class.active]="activeSection === 'books'" (click)="setSection('books')">
+      <button
+        type="button"
+        [class.active]="activeSection === 'books'"
+        (click)="setSection('books')">
         مدیریت کتاب‌ها
       </button>
 
-      <button type="button" [class.active]="activeSection === 'add-book'" (click)="setSection('add-book')">
+      <button
+        type="button"
+        [class.active]="activeSection === 'add-book'"
+        (click)="setSection('add-book')">
         افزودن کتاب
       </button>
     </nav>
@@ -22,24 +32,40 @@
       خروج
     </button>
   </aside>
+
+  <!-- محتوای اصلی -->
   <main class="admin-content">
-    <!-- هدر داخلی ادمین (اختیاری اگر هدر اصلی را در فایل بالا گذاشتید) -->
     <div class="content-header d-flex justify-content-between align-items-center mb-4">
-      <h3 class="fw-bold">{{ activeSection === 'books' ? 'مدیریت کتاب‌ها' : activeSection === 'orders' ? 'لیست سفارشات'
-        : 'افزودن کتاب جدید' }}</h3>
+      <h3 class="fw-bold mb-0">
+        {{
+          activeSection === 'books'
+            ? 'مدیریت کتاب‌ها'
+            : activeSection === 'orders'
+            ? 'لیست سفارشات'
+            : 'افزودن کتاب جدید'
+        }}
+      </h3>
+
       <div class="user-info">
         <span class="badge bg-primary">Admin Mode</span>
       </div>
     </div>
+
     <!-- سفارش‌ها -->
-    <section *ngIf="activeSection === 'orders'">
-      <app-admin-orders></app-admin-orders>
+    <section *ngIf="activeSection === 'orders'" class="admin-section orders-section">
+      <div class="section-header">
+        <h2>لیست سفارشات</h2>
+      </div>
+
+      <div class="orders-wrapper">
+        <app-admin-orders></app-admin-orders>
+      </div>
     </section>
 
     <!-- مدیریت کتاب‌ها -->
     <section *ngIf="activeSection === 'books'" class="admin-section">
-      <div class="section-header">
-        <h2>مدیریت کتاب‌ها</h2>
+      <div class="section-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h2 class="mb-0">مدیریت کتاب‌ها</h2>
         <span class="book-count">تعداد کتاب‌ها: {{ books.length }}</span>
       </div>
 
@@ -60,16 +86,23 @@
 
           <tbody>
             <tr *ngFor="let book of books">
+              <!-- تصویر -->
               <td>
-                <img [src]="'http://localhost:3000/uploads/' + book.image" class="img-thumbnail"
-                  style="width: 50px; height: 70px; object-fit: cover;">
+                <img
+                  [src]="'http://localhost:3000/uploads/' + book.image"
+                  class="img-thumbnail"
+                  style="width: 50px; height: 70px; object-fit: cover;"
+                  alt="book image">
               </td>
 
               <!-- نام کتاب -->
               <td>
                 <div class="form-group">
                   <label class="small text-muted mb-1 d-block">نام کتاب</label>
-                  <input type="text" [(ngModel)]="book.name" name="name-{{ book._id }}"
+                  <input
+                    type="text"
+                    [(ngModel)]="book.name"
+                    name="name-{{ book._id }}"
                     class="form-control form-control-sm text-center">
                 </div>
               </td>
@@ -78,7 +111,10 @@
               <td>
                 <div class="form-group">
                   <label class="small text-muted mb-1 d-block">نویسنده</label>
-                  <input type="text" [(ngModel)]="book.author" name="author-{{ book._id }}"
+                  <input
+                    type="text"
+                    [(ngModel)]="book.author"
+                    name="author-{{ book._id }}"
                     class="form-control form-control-sm text-center">
                 </div>
               </td>
@@ -87,8 +123,13 @@
               <td>
                 <div class="form-group">
                   <label class="small text-muted mb-1 d-block">قیمت (تومان)</label>
-                  <input type="number" min="0" [(ngModel)]="book.price" name="price-{{ book._id }}"
-                    class="form-control form-control-sm text-center" style="width: 110px;">
+                  <input
+                    type="number"
+                    min="0"
+                    [(ngModel)]="book.price"
+                    name="price-{{ book._id }}"
+                    class="form-control form-control-sm text-center"
+                    style="width: 110px;">
                 </div>
               </td>
 
@@ -97,28 +138,45 @@
                 <div class="form-group">
                   <label class="small text-muted mb-1 d-block">تخفیف</label>
                   <div class="d-flex align-items-center justify-content-center gap-1">
-                    <input type="number" min="0" max="100" [(ngModel)]="book.discount" name="discount-{{ book._id }}"
-                      class="form-control form-control-sm text-center" style="width: 60px;">
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      [(ngModel)]="book.discount"
+                      name="discount-{{ book._id }}"
+                      class="form-control form-control-sm text-center"
+                      style="width: 60px;">
                     <span class="small">%</span>
                   </div>
-                  <!-- نمایش قیمت نهایی زیر اینپوت تخفیف -->
-                  <small *ngIf="book.discount > 0" class="text-success d-block mt-1" style="font-size: 10px;">
+
+                  <small
+                    *ngIf="book.discount > 0"
+                    class="text-success d-block mt-1"
+                    style="font-size: 10px;">
                     نهایی: {{ book.price - (book.price * book.discount / 100) | number }}
                   </small>
                 </div>
               </td>
 
-              <!-- دسته‌بندی و وضعیت‌های ویژه -->
+              <!-- وضعیت‌های ویژه -->
               <td class="text-end" style="min-width: 140px;">
                 <div class="form-check form-switch mb-1">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="book.isNewArrival"
-                    name="new-{{ book._id }}" (change)="updateBook(book)">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="book.isNewArrival"
+                    name="new-{{ book._id }}"
+                    (change)="updateBook(book)">
                   <label class="form-check-label small">جدیدترین</label>
                 </div>
 
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="book.isBestSeller"
-                    name="best-{{ book._id }}" (change)="updateBook(book)">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="book.isBestSeller"
+                    name="best-{{ book._id }}"
+                    (change)="updateBook(book)">
                   <label class="form-check-label small">پرفروش</label>
                 </div>
               </td>
@@ -126,7 +184,9 @@
               <!-- فعال/غیرفعال -->
               <td>
                 <label class="small text-muted mb-1 d-block">وضعیت</label>
-                <button type="button" class="btn btn-sm w-100"
+                <button
+                  type="button"
+                  class="btn btn-sm w-100"
                   [ngClass]="book.isActive ? 'btn-outline-success' : 'btn-outline-secondary'"
                   (click)="toggleActive(book)">
                   {{ book.isActive ? 'فعال' : 'غیرفعال' }}
@@ -136,24 +196,30 @@
               <!-- عملیات -->
               <td>
                 <label class="small text-muted mb-1 d-block">مدیریت</label>
-                <div class="d-flex justify-content-center gap-1">
-                  <button type="button" class="btn btn-primary btn-sm" (click)="updateBook(book)" title="ذخیره">
+                <div class="d-flex justify-content-center gap-1 flex-wrap">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    (click)="updateBook(book)"
+                    title="ذخیره">
                     <i class="bi bi-check2"></i> ذخیره
                   </button>
 
-                  <button type="button" class="btn btn-danger btn-sm" (click)="askDeleteBook(book)" title="حذف">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    (click)="askDeleteBook(book)"
+                    title="حذف">
                     <i class="bi bi-trash"></i> حذف
                   </button>
                 </div>
               </td>
             </tr>
           </tbody>
-
         </table>
       </div>
     </section>
 
-    <!-- افزودن کتاب -->
     <!-- افزودن کتاب -->
     <section *ngIf="activeSection === 'add-book'" class="admin-section">
       <div class="section-header">
@@ -163,27 +229,52 @@
       <form (ngSubmit)="addBook()" class="row g-3 align-items-end">
         <div class="col-md-3">
           <label class="small text-muted mb-1 d-block">نام کتاب</label>
-          <input type="text" [(ngModel)]="newBook.name" name="name" class="form-control" required>
+          <input
+            type="text"
+            [(ngModel)]="newBook.name"
+            name="name"
+            class="form-control"
+            required>
         </div>
 
         <div class="col-md-3">
           <label class="small text-muted mb-1 d-block">نویسنده</label>
-          <input type="text" [(ngModel)]="newBook.author" name="author" class="form-control" required>
+          <input
+            type="text"
+            [(ngModel)]="newBook.author"
+            name="author"
+            class="form-control"
+            required>
         </div>
 
         <div class="col-md-2">
           <label class="small text-muted mb-1 d-block">قیمت</label>
-          <input type="number" [(ngModel)]="newBook.price" name="price" class="form-control" min="0" required>
+          <input
+            type="number"
+            [(ngModel)]="newBook.price"
+            name="price"
+            class="form-control"
+            min="0"
+            required>
         </div>
 
         <div class="col-md-2">
           <label class="small text-muted mb-1 d-block">تخفیف</label>
-          <input type="number" [(ngModel)]="newBook.discount" name="discount" class="form-control" min="0" max="100">
+          <input
+            type="number"
+            [(ngModel)]="newBook.discount"
+            name="discount"
+            class="form-control"
+            min="0"
+            max="100">
         </div>
 
         <div class="col-md-2">
           <label class="small text-muted mb-1 d-block">تصویر کتاب</label>
-          <input type="file" (change)="onFileSelected($event)" class="form-control">
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            class="form-control">
         </div>
 
         <div class="col-12 text-start">
@@ -193,27 +284,33 @@
         </div>
       </form>
     </section>
-
   </main>
+</div>
 
-  <div class="delete-modal-backdrop" *ngIf="confirmDeleteBookId">
-    <div class="delete-modal">
-      <h3>حذف کتاب</h3>
-      <p>
-        آیا از حذف کتاب
-        <strong>{{ confirmDeleteBookName }}</strong>
-        مطمئن هستید؟
-      </p>
+<!-- مودال حذف کتاب را بیرون admin-layout گذاشتیم تا روی همه چیز بیاید -->
+<div class="delete-modal-backdrop" *ngIf="confirmDeleteBookId">
+  <div class="delete-modal" (click)="$event.stopPropagation()">
+    <h3>حذف کتاب</h3>
+    <p>
+      آیا از حذف کتاب
+      <strong>{{ confirmDeleteBookName }}</strong>
+      مطمئن هستید؟
+    </p>
 
-      <div class="delete-modal-actions">
-        <button type="button" class="btn btn-secondary" (click)="cancelDeleteBook()">
-          انصراف
-        </button>
+    <div class="delete-modal-actions">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="cancelDeleteBook()">
+        انصراف
+      </button>
 
-        <button type="button" class="btn btn-danger" (click)="confirmDeleteBook()">
-          بله، حذف شود
-        </button>
-      </div>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="confirmDeleteBook()">
+        بله، حذف شود
+      </button>
     </div>
   </div>
 </div>
