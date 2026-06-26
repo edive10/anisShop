@@ -13,6 +13,10 @@ export interface Book {
   stock: number;
   pages: number;
   language: string;
+  discount?: number;
+  isActive?: boolean;
+  isNewArrival?: boolean;
+  isBestSeller?: boolean;
 }
 
 @Injectable({
@@ -69,6 +73,13 @@ export class BookService {
   deleteBook(id: string) {
     return this.http.delete(
       `${this.apiUrl}/${id}`,
+      this.getAuthHeaders()
+    );
+  }
+  toggleBookActive(id: string, isActive: boolean) {
+    return this.http.patch(
+      `${this.apiUrl}/${id}/active`,
+      { isActive },
       this.getAuthHeaders()
     );
   }

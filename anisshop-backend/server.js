@@ -49,7 +49,7 @@ app.use(cors({
   origin: "http://localhost:4200",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
-})); 
+}));
 app.use(express.json());
 app.use("/admin", adminRoutes);
 app.use("/orders", orderRoutes);
@@ -131,41 +131,22 @@ app.post('/books', verifyAdminToken, upload.single('image'), async (req, res) =>
 app.put('/books/:id', verifyAdminToken, async (req, res) => {
   try {
     const updatedBook = await Book.findByIdAndUpdate(
-
       req.params.id,
-
       {
-        name: req.body.name,
-        author: req.body.author,
-        description: req.body.description,
-        price: Number(req.body.price),
-        category: req.body.category,
-        stock: Number(req.body.stock),
-        pages: Number(req.body.pages),
-        language: req.body.language,
-        image: req.body.image,
-        isBestSeller: req.body.isBestSeller,
-        isNewArrival: req.body.isNewArrival,
-        isActive: req.body.isActive,
-        discount: Number(req.body.discount) || 0
+        $set: req.body // این باعث می‌شود فقط فیلدهایی که فرستاده‌اید آپدیت شوند
       },
-
-      {
-        returnDocument: "after",
-        runValidators: true
-      }
+      { new: true, runValidators: true }
     );
 
-    if (!updatedBook)
-      return res.status(404).json({ message: "Book not found" });
+    if (!updatedBook) return res.status(404).json({ message: "Book not found" });
 
     io.emit("booksChanged");
     res.json(updatedBook);
-
   } catch (error) {
-    res.status(500).json({ message: "Error updating book", error });
+    res.status(500).json({ message: "Error updating book", error: error.message });
   }
 });
+
 
 /* -------------------------------------------
    Delete Book (Protected)
@@ -189,6 +170,32 @@ app.delete('/books/:id', verifyAdminToken, async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ message: "Error deleting book", error });
+  }
+});
+app.patch('/books/:id/active', verifyAdminToken, async (req, res) => {
+  try {
+    const { isActive } = req.body;
+
+    const parsedIsActive =
+      isActive === true || isActive === 'true';
+
+    const updatedBook = await Book.findByIdAndUpdate(
+      req.params.id,
+      { $set: { isActive: parsedIsActive } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedBook) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+
+    io.emit('booksChanged');
+    res.json(updatedBook);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error updating book active status',
+      error: error.message
+    });
   }
 });
 
